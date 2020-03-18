@@ -1,7 +1,8 @@
 class Patient < ApplicationRecord
   STATUSES = [
     "home quarantine",
-    "hospital quarantine"
+    "hospital quarantine",
+    "skeletal workforce"
   ]
 
   CLASSIFICATIONS = [
@@ -55,6 +56,11 @@ class Patient < ApplicationRecord
 
   serialize :symptoms, Array
   serialize :needs, Array
+
+  before_validation :load_defaults
+
+  def load_defaults
+  end
 
   def full_name
     "#{self.last_name.upcase}, #{self.first_name.upcase} #{self.middle_name.try(:upcase)}"
