@@ -62,12 +62,25 @@
         %h5
           * Status
         = f.input :status, as: :select, collection: Patient::STATUSES, label: false, input_html: { class: 'form-control' }
+  .row
+    .col
+      %h5
+        Status Checklist
+      .form-group
+        = f.input :access_to_transportation
+      .form-group
+        = f.input :access_to_food
+      .form-group
+        = f.input :receives_government_aid
+      .form-group
+        = f.input :is_positive, label: "Is Positive with Covid19"
+  .row
     .col
       .form-group
         %h5
-          Is Positive
-        = f.input :is_positive, label: false
-  .row
+          Action Taken
+        = f.input :action_taken, as: :select, collection: Patient::ACTIONS_TAKEN, label: false, input_html: { class: 'form-control' }
+        = f.input :other_action_taken, as: :string, label: "Specify", input_html: { class: 'form-control', placeholder: 'Others' }
     .col
       .form-group
         %h5

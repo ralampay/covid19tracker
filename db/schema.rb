@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_18_111036) do
+ActiveRecord::Schema.define(version: 2020_03_18_124323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -38,6 +38,12 @@ ActiveRecord::Schema.define(version: 2020_03_18_111036) do
     t.string "region"
     t.string "village"
     t.string "province"
+    t.string "action_taken"
+    t.string "other_action_taken"
+    t.boolean "access_taccess_to_income"
+    t.boolean "access_to_transportation"
+    t.boolean "access_to_food"
+    t.boolean "receives_government_aid"
     t.index ["user_id"], name: "index_patients_on_user_id"
   end
 

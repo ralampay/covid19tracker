@@ -49,6 +49,27 @@
                         #{o}
               %tr
                 %th
+                  Status Checklist
+                %td
+                  %ul
+                    %li
+                      (#{@patient.access_to_transportation ? 'yes' : 'no'}) Access to Transportation
+                    %li
+                      (#{@patient.access_to_food ? 'yes' : ''}) Access to Food
+                    %li
+                      (#{@patient.receives_government_aid ? 'yes' : 'no'}) Receives Government Aid
+                    %li
+                      (#{@patient.is_positive ? 'yes' : 'no'}) Is Positive with Covid19
+              %tr
+                %th
+                  Action Taken
+                %td
+                  - if @patient.action_taken == "Others"
+                    #{@patient.other_action_taken}
+                  - else
+                    #{@patient.action_taken}
+              %tr
+                %th
                   Needs
                 %td
                   %ul

@@ -42,6 +42,14 @@ class Patient < ApplicationRecord
     "critical"
   ]
 
+  ACTIONS_TAKEN = [
+    "Take Medicine",
+    "Visit Health Center",
+    "Visit Clinic / Hospital",
+    "None",
+    "Others"
+  ]
+
   belongs_to :user
 
   validates :first_name, presence: true
@@ -55,6 +63,8 @@ class Patient < ApplicationRecord
   validates :date_of_birth, presence: true
   validates :gender, presence: true, inclusion: { in: GENDERS }
   validates :classification, presence: true, inclusion: { in: CLASSIFICATIONS }
+  validates :action_taken, presence: true, inclusion: { in: ACTIONS_TAKEN }
+  validates :other_action_taken, presence: true, if: :other_action_taken?
 
   serialize :symptoms, Array
   serialize :needs, Array
@@ -62,6 +72,10 @@ class Patient < ApplicationRecord
   before_validation :load_defaults
 
   def load_defaults
+  end
+
+  def other_action_taken?
+    self.action_taken == "Others"
   end
 
   def full_name
