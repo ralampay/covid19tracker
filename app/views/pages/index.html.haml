@@ -5,7 +5,5 @@
         Covid19 Crisis People Tracker
       %p
         These are aggregated information of people in need of supplies as well as symptoms and other information in relation to this quarantine period. It is not to be taken as a source of Covid19 patients but rather as crowd sourced information to identify which sections of Metro Manila contain density of population with various needs.
-      .card
-        .card-body
-          = render partial: "index_list"
-          = paginate @patients
+      = render partial: "index_list"
+      = paginate @patients

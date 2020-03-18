@@ -51,6 +51,7 @@ class Patient < ApplicationRecord
   ]
 
   belongs_to :user
+  belongs_to :patient, optional: true
 
   validates :first_name, presence: true
   validates :last_name, presence: true

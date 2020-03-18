@@ -1,4 +1,4 @@
-%table.table.table-bordered
+%table.table.table-bordered.table-sm
   %thead
     %tr
       %th
@@ -19,7 +19,7 @@
         Classification
       %th
         Is Positive?
-      %th
+      %th.text-center
         Actions
   %tbody
     - @patients.each do |p|
@@ -55,6 +55,6 @@
           - else
             .badge.badge-info
               Unconfirmed
-        %td
+        %td.text-center
           = link_to patient_path(p) do
             .fa.fa-search

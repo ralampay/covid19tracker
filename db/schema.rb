@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_18_124323) do
+ActiveRecord::Schema.define(version: 2020_03_18_125252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -44,6 +44,9 @@ ActiveRecord::Schema.define(version: 2020_03_18_124323) do
     t.boolean "access_to_transportation"
     t.boolean "access_to_food"
     t.boolean "receives_government_aid"
+    t.boolean "is_primary"
+    t.uuid "patient_id"
+    t.index ["patient_id"], name: "index_patients_on_patient_id"
     t.index ["user_id"], name: "index_patients_on_user_id"
   end
 
@@ -63,5 +66,6 @@ ActiveRecord::Schema.define(version: 2020_03_18_124323) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "patients", "patients"
   add_foreign_key "patients", "users"
 end
