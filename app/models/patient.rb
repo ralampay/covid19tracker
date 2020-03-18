@@ -47,8 +47,10 @@ class Patient < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :status, presence: true, inclusion: { in: STATUSES }
+  validates :region, presence: true
+  validates :province, presence: true
   validates :city, presence: true
-  #validates :barangay, presence: true
+  validates :village, presence: true
   #validates :temperature, presence: true, numericality: true
   validates :date_of_birth, presence: true
   validates :gender, presence: true, inclusion: { in: GENDERS }

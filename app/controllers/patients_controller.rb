@@ -48,9 +48,10 @@ class PatientsController < ApplicationController
   end
 
   def load_values
-    @cities   = JSON.parse(File.read('app/assets/javascripts/cities.json')).map{ |o|
-                  o["name"]
-                }
+    cmd = FetchRegions.new
+    cmd.execute!
+
+    @data = cmd.data
   end
 
   def load_patient

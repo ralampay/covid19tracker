@@ -18,15 +18,25 @@
       .form-group
         = f.input :last_name, input_html: { class: 'form-control' }
   .row
-    .col-md-3
+    .col-md-6
       .form-group
         = f.input :gender, as: :select, collection: Patient::GENDERS, input_html: { class: 'form-control' }
-    .col-md-3
+    .col-md-6
       .form-group
         = f.input :date_of_birth, as: :string, input_html: { class: 'form-control', type: 'date' }
+  .row
     .col-md-3
       .form-group
-        = f.input :city, as: :select, collection: @cities, input_html: { id: 'select-city', class: 'form-control' }
+        = f.input :region, as: :select, collection: [], input_html: { id: 'select-region', class: 'form-control' }
+    .col-md-3
+      .form-group
+        = f.input :province, as: :select, collection: [], input_html: { id: 'select-province', class: 'form-control' }
+    .col-md-3
+      .form-group
+        = f.input :city, as: :select, collection: [], input_html: { id: 'select-city', class: 'form-control' }, label: "City / Municipality"
+    .col-md-3
+      .form-group
+        = f.input :village, as: :select, collection: [], input_html: { id: 'select-village', class: 'form-control' }
   .row
     .col
       .form-group
@@ -84,3 +94,24 @@
       = link_to patients_path, class: "btn btn-danger" do
         .fa.fa-times
         Cancel
+
+#parameters{ data: { data: @data.to_json, region: @patient.region, province: @patient.province, city: @patient.city, village: @patient.village } }
+= javascript_include_tag "patients/Form.js"
+
+:javascript
+  $(document).ready(function() {
+    var $parameters = $("#parameters");
+    var data        = $parameters.data('data');
+    var region      = $parameters.data('region');
+    var province    = $parameters.data('province');
+    var city        = $parameters.data('city');
+    var village     = $parameters.data('village');
+
+    Form.init({
+      data: data,
+      region: region,
+      province: province,
+      city: city,
+      village: village
+    });
+  });
