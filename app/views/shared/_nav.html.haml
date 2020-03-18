@@ -4,8 +4,9 @@
       %li
         = link_to root_path do
           Home
-      %li
-        = link_to patients_path do
-          My Patients
+      - if user_signed_in?
+        %li
+          = link_to patients_path do
+            My Patients
   .col
     = render partial: "shared/login"
