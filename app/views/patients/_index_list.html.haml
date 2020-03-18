@@ -10,11 +10,13 @@
       %th
         Symptoms
       %th
+        Needs
+      %th
         City
       %th
-        Address
-      %th
         Status
+      %th
+        Classification
       %th
         Is Positive?
       %th
@@ -29,16 +31,23 @@
         %td
           #{p.age}
         %td
-          %ul
-            - p.symptoms.select{ |o| o.present? }.each do |s|
-              %li
-                #{s}
+          - if p.symptoms.present?
+            %ul
+              - p.symptoms.select{ |o| o.present? }.each do |s|
+                %li
+                  #{s}
+        %td
+          - if p.needs.present?
+            %ul
+              - p.needs.select{ |o| o.present? }.each do |s|
+                %li
+                  #{s}
         %td
           #{p.city}
         %td
-          #{p.address}
-        %td
           #{p.status}
+        %td
+          #{p.classification}
         %td
           - if p.is_positive
             .badge.badge-danger
