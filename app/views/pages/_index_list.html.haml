@@ -1,4 +1,4 @@
-%table.table.table-bordered
+%table.table.table-bordered.table-sm
   %thead
     %tr
       %th
@@ -23,7 +23,7 @@
     - @patients.each do |p|
       %tr
         %td
-          #{p.id}
+          #{truncate(p.id, length: 12)}
         %td
           #{p.gender}
         %td
