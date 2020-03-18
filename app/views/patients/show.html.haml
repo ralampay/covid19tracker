@@ -41,6 +41,11 @@
                   - elsif @patient.needs_status == "critical"
                     .badge.badge-danger
                       Critical
+              %tr
+                %th
+                  Notes
+                %td
+                  #{@patient.notes}
           %hr
           = link_to edit_patient_path(@patient) do |o|
             .fa.fa-pencil-alt

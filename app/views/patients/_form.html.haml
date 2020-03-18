@@ -68,6 +68,12 @@
         %h5
           Needs Status
         = f.input :needs_status, as: :select, collection: Patient::NEEDS_STATUS, label: false, input_html: { class: 'form-control' }
+  .row
+    .col
+      .form-group
+        %h5
+          Notes
+        = f.input :notes, as: :text, input_html: { class: 'form-control' }, label: false
 
   %hr
   .row
