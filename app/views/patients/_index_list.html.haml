@@ -1,0 +1,51 @@
+%table.table.table-bordered
+  %thead
+    %tr
+      %th
+        Name
+      %th
+        Gender
+      %th
+        Age
+      %th
+        Symptoms
+      %th
+        City
+      %th
+        Address
+      %th
+        Status
+      %th
+        Is Positive?
+      %th
+        Actions
+  %tbody
+    - @patients.each do |p|
+      %tr
+        %td
+          #{p.full_name}
+        %td
+          #{p.gender}
+        %td
+          #{p.age}
+        %td
+          %ul
+            - p.symptoms.select{ |o| o.present? }.each do |s|
+              %li
+                #{s}
+        %td
+          #{p.city}
+        %td
+          #{p.address}
+        %td
+          #{p.status}
+        %td
+          - if p.is_positive
+            .badge.badge-danger
+              Confirmed
+          - else
+            .badge.badge-info
+              Unconfirmed
+        %td
+          = link_to patient_path(p) do
+            .fa.fa-search

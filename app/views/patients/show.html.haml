@@ -1,0 +1,50 @@
+= render partial: "show_header"
+
+.container-fluid
+  .row
+    .col
+      .card
+        .card-body
+          %h3
+            #{@patient.full_name}
+          %table.table.table-bordered
+            %tbody
+              %tr
+                %th
+                  Gender
+                %td
+                  #{@patient.gender}
+              %tr
+                %th
+                  Age
+                %td
+                  #{@patient.age}
+              %tr
+                %th
+                  Symptoms
+                %td
+                  %ul
+                    - @patient.symptoms.select{ |o| o.present? }.each do |o|
+                      %li
+                        #{o}
+              %tr
+                %th
+                  Needs
+                %td
+                  %ul
+                    - @patient.needs.select{ |o| o.present? }.each do |o|
+                      %li
+                        #{o}
+                  - if @patient.needs_status == "manageable"
+                    .badge.badge-info
+                      Manageable
+                  - elsif @patient.needs_status == "critical"
+                    .badge.badge-danger
+                      Critical
+          %hr
+          = link_to edit_patient_path(@patient) do |o|
+            .fa.fa-pencil-alt
+            Edit
+          = link_to patient_path(@patient), method: :delete, data: { confirm: "Are you sure?" } do |o|
+            .fa.fa-times
+            Delete

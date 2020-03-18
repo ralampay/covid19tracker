@@ -1,0 +1,13 @@
+= render partial: "index_header"
+.container-fluid
+  .row
+    .col
+      %h1
+        My Patients
+      %hr
+      - if @patients.size > 0
+        = render partial: "index_list"
+        = paginate @patients
+      - else
+        %p
+          No patients yet.

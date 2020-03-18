@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  first_name: MyString
+  last_name: MyString
+  date_of_birth: 2020-03-18
+  gender: MyString
+  status: MyString
+  city: MyString
+  barangay: MyString
+  address: MyString
+  user: one
+  symptoms: MyString
+  temperature: 9.99
+  notes: MyText
+
+two:
+  first_name: MyString
+  last_name: MyString
+  date_of_birth: 2020-03-18
+  gender: MyString
+  status: MyString
+  city: MyString
+  barangay: MyString
+  address: MyString
+  user: two
+  symptoms: MyString
+  temperature: 9.99
+  notes: MyText

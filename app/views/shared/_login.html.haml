@@ -1,0 +1,23 @@
+- if !user_signed_in?
+  .row
+    .col
+      .form-group
+        %label
+          Email / Username
+        = text_field_tag :email, "", id: 'input-email', class: 'form-control', placeholder: 'Email'
+    .col
+      .form-group
+        %label
+          Password
+        = password_field_tag :password, "", id: 'input-password', class: 'form-control', placeholder: 'Password'
+    .col
+      .form-group
+        %label
+        #btn-login.btn.btn-info.btn-block
+          .fa.fa-upload
+          Login
+- else
+  %p
+    Welcome #{current_user}! 
+    = link_to destroy_user_session_path, method: :delete do
+      Logout

@@ -1,0 +1,2 @@
+namespace :administration do
+end
