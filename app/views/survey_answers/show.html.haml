@@ -18,10 +18,11 @@
                   = radio_button_tag("options-#{o.question.id}", option.val, option.val == o.answer)
                   #{option.label}
                   %br
+                = text_field_tag :answer, o.answer, class: "form-control", id: "answer-#{o.id}"
                 %hr
-                .btn.btn-info.btn-block.btn-submit{ data: { id: o.id } }
+                .btn.btn-info.btn-block.btn-submit{ data: { id: o.id, target: "answer-#{o.id}" } }
                   .fa.fa-check
-                  Submit Answer
+                  Save Answer
               - else
                 %ul
                   - o.question.question_options.order("priority ASC").each do |option|
@@ -34,37 +35,38 @@
                   = check_box_tag("option-#{option.id}", option.val, o.answer.split(",").include?(option.val == o.answer))
                   #{option.label}
                   %br
+                = text_field_tag :answer, o.answer, class: "form-control", id: "answer-#{o.id}"
                 %hr
-                .btn.btn-info.btn-block.btn-submit{ data: { id: o.id } }
+                .btn.btn-info.btn-block.btn-submit{ data: { id: o.id, target: "answer-#{o.id}" } }
                   .fa.fa-check
-                  Submit Answer
+                  Save Answer
               - else
                 #{o.answer}
             - elsif o.question.question_type == "single-written"
               - if !@survey_answer.is_final
-                = text_field_tag :answer, o.answer, class: "form-control"
+                = text_field_tag :answer, o.answer, class: "form-control", id: "answer-#{o.id}"
                 %hr
-                .btn.btn-info.btn-block.btn-submit{ data: { id: o.id } }
+                .btn.btn-info.btn-block.btn-submit{ data: { id: o.id, target: "answer-#{o.id}" } }
                   .fa.fa-check
-                  Submit Answer
+                  Save Answer
               - else
                 #{o.answer}
             - elsif o.question.question_type == "date"
               - if !@survey_answer.is_final
-                = text_field_tag :answer, o.answer, class: "form-control", type: "date"
+                = text_field_tag :answer, o.answer, class: "form-control", type: "date", id: "answer-#{o.id}"
                 %hr
-                .btn.btn-info.btn-block.btn-submit{ data: { id: o.id } }
+                .btn.btn-info.btn-block.btn-submit{ data: { id: o.id, target: "answer-#{o.id}" } }
                   .fa.fa-check
-                  Submit Answer
+                  Save Answer
               - else
                 #{o.answer}
             - elsif o.question.question_type == "numeric"
               - if !@survey_answer.is_final
-                = text_field_tag :answer, o.answer, class: "form-control", type: "number"
+                = text_field_tag :answer, o.answer, class: "form-control", type: "number", id: "answer-#{o.id}"
                 %hr
-                .btn.btn-info.btn-block.btn-submit{ data: { id: o.id } }
+                .btn.btn-info.btn-block.btn-submit{ data: { id: o.id, target: "answer-#{o.id}" } }
                   .fa.fa-check
-                  Submit Answer
+                  Save Answer
               - else
                 #{o.answer}
         %hr
@@ -89,3 +91,16 @@
                 .fa.fa-times
                 Confirm Delete
         %hr
+
+= render partial: "survey_answers/modals/finalize"
+
+= javascript_include_tag "survey_answers/Show.js"
+
+:javascript
+  $(document).ready(function() {
+    var authenticityToken = $("meta[name='csrf-token']").attr('content');
+
+    Show.init({
+      authenticityToken: authenticityToken
+    });
+  });
