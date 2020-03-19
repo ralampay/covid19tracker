@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  contact_person: MyString
+  address: MyString
+  region: MyString
+  province: MyString
+  city: MyString
+  village: MyString
+  category: MyString
+  contact_number: MyString
+  number_of_people_in_need: 1
+  lat: 9.99
+  lng: 9.99
+  description: MyText
+  severity: MyString
+  needs: MyString
+
+two:
+  name: MyString
+  contact_person: MyString
+  address: MyString
+  region: MyString
+  province: MyString
+  city: MyString
+  village: MyString
+  category: MyString
+  contact_number: MyString
+  number_of_people_in_need: 1
+  lat: 9.99
+  lng: 9.99
+  description: MyText
+  severity: MyString
+  needs: MyString
