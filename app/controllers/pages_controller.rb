@@ -6,4 +6,7 @@ class PagesController < ApplicationController
 
     @patients = @patients.page(params[:page]).per(20)
   end
+
+  def profile
+  end
 end

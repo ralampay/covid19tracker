@@ -10,11 +10,3 @@
   #btn-login.btn.btn-info
     .fa.fa-upload
     Login
-- else
-  .nav.navbar-nav.pull-md-right
-    %ul.nav.navbar-nav
-      %li.nav-item
-        .navbar-text
-          = link_to destroy_user_session_path, method: :delete, class: 'navbar-link' do
-            .fa.fa-times
-            Logout

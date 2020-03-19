@@ -1,0 +1,38 @@
+= render partial: "profile_header"
+
+.container-fluid
+  .row
+    .col
+      .card
+        .card-body
+          %table.table.table-bordered
+            %tr
+              %th
+                First Name:
+              %td
+                #{current_user.first_name}
+            %tr
+              %th
+                Last Name:
+              %td
+                #{current_user.last_name}
+            %tr
+              %th
+                Group Name:
+              %td
+                #{current_user.group_name}
+          .card
+            .card-body
+              %h4
+                Change Password
+              .row
+                .col
+                  .form-group
+                    %label
+                      Password:
+                    = password_field_tag :password, "", id: 'input-password', class: 'form-control'
+                  .form-group
+                    %label
+                      Confirm Password:
+                    = password_field_tag :password, "", id: 'input-confirm-password', class: 'form-control'
+

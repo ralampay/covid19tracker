@@ -10,4 +10,12 @@
           = link_to patients_path, class: 'nav-link' do
             .fa.fa-users
             My Records
+        %li.nav-item
+          = link_to profile_path, class: 'nav-link' do
+            .fa.fa-user
+            Profile
+        %li.nav-item
+          = link_to destroy_user_session_path, method: :delete, class: 'nav-link' do
+            .fa.fa-times
+            Logout
   = render partial: "shared/login"
