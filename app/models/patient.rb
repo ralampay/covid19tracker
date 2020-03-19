@@ -2,7 +2,8 @@ class Patient < ApplicationRecord
   STATUSES = [
     "home quarantine",
     "hospital quarantine",
-    "skeletal workforce"
+    "skeletal workforce",
+    "work from home"
   ]
 
   CLASSIFICATIONS = [
