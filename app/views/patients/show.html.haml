@@ -75,6 +75,20 @@
                       (#{@patient.is_positive ? 'yes' : 'no'}) Is Positive with Covid19
               %tr
                 %th
+                  Date Last Exposed
+                %td
+                  - if @patient.date_last_exposed.present?
+                    #{@patient.date_last_exposed.strftime("%b %d, %Y")}
+              %tr
+                %th
+                  Latest Exposure
+                %td
+                  - if @patient.latest_exposure == "Others"
+                    #{@patient.latest_exposure_specify}
+                  - else
+                    #{@patient.latest_exposure}
+              %tr
+                %th
                   Action Taken
                 %td
                   - if @patient.action_taken == "Others"

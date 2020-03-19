@@ -53,6 +53,7 @@ class Patient < ApplicationRecord
 
   EXPOSURES = [
     "Out of Country",
+    "Out of Town",
     "Public",
     "Hospital",
     "Grocery",
@@ -77,10 +78,18 @@ class Patient < ApplicationRecord
   validates :other_action_taken, presence: true, if: :other_action_taken?
   validate :is_primary_valid
 
+  validate :latest_exposure_specify_content
+
   serialize :symptoms, Array
   serialize :needs, Array
 
   before_validation :load_defaults
+
+  def latest_exposure_specify_content
+    if self.latest_exposure.present? and self.latest_exposure == "Others" and self.latest_exposure_specify.blank?
+      errors.add(:latest_exposure_specify, "Required")
+    end
+  end
 
   def is_primary_valid
     if self.patient.present? and self.is_primary == true

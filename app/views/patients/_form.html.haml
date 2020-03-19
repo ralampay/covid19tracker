@@ -85,6 +85,20 @@
         = f.input :is_positive, label: "Is Positive with Covid19"
       .form-group
         = f.input :is_deceased
+
+  %h3
+    Exposure
+  .row
+    .col
+      .form-group
+        = f.input :date_last_exposed, as: :string, input_html: { class: 'form-control', type: 'date' }
+    .col
+      .form-group
+        = f.input :latest_exposure, as: :select, collection: Patient::EXPOSURES, input_html: { class: 'form-control' }
+    .col
+      .form-group
+        = f.input :latest_exposure_specify, label: "If exposure is others, specify", input_html: { class: 'form-control' }
+      
   .row
     .col
       .form-group

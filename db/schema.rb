@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_19_122627) do
+ActiveRecord::Schema.define(version: 2020_03_19_122940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(version: 2020_03_19_122627) do
     t.string "needs"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "user_id"
+    t.index ["user_id"], name: "index_establishments_on_user_id"
   end
 
   create_table "patients", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -68,6 +70,9 @@ ActiveRecord::Schema.define(version: 2020_03_19_122627) do
     t.uuid "patient_id"
     t.boolean "is_deceased"
     t.string "contact_number"
+    t.date "date_last_exposed"
+    t.string "latest_exposure"
+    t.string "latest_exposure_specify"
     t.index ["patient_id"], name: "index_patients_on_patient_id"
     t.index ["user_id"], name: "index_patients_on_user_id"
   end
@@ -88,6 +93,7 @@ ActiveRecord::Schema.define(version: 2020_03_19_122627) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "establishments", "users"
   add_foreign_key "patients", "patients"
   add_foreign_key "patients", "users"
 end
