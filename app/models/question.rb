@@ -3,8 +3,8 @@ class Question < ApplicationRecord
     "single",
     "multiple",
     "single-written",
-    "boolean",
-    "numeric"
+    "numeric",
+    "date"
   ]
 
   belongs_to :survey

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get "/profile", to: "pages#profile", as: :profile
 
   resources :patients
+  resources :survey_answers, only: [:index, :show, :destroy]
 
   draw :administration
   draw :api

@@ -12,17 +12,18 @@
         - else
           %p
             No options yet.
-        %hr
-        .btn-group
-          = link_to edit_administration_survey_question_path(@survey, o), class: 'btn' do
-            .fa.fa-pencil-alt
-            Edit Question
-          = link_to new_administration_survey_question_path(@survey, o), class: 'btn' do
-            .fa.fa-plus
-            Add Option
-          = link_to administration_survey_question_path(@survey, o), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn' do
-            .fa.fa-times
-            Delete Question
       - else
         %p
           (No options for this type of question)
+      %hr
+      .btn-group
+        = link_to edit_administration_survey_question_path(@survey, o), class: 'btn' do
+          .fa.fa-pencil-alt
+          Edit Question
+        - if ["single", "multiple"].include?(o.question_type)
+          = link_to new_administration_survey_question_question_option_path(@survey, o), class: 'btn' do
+            .fa.fa-plus
+            Add Option
+        = link_to administration_survey_question_path(@survey, o), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn' do
+          .fa.fa-times
+          Delete Question

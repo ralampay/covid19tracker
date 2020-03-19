@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_19_141600) do
+ActiveRecord::Schema.define(version: 2020_03_19_160257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -98,6 +98,28 @@ ActiveRecord::Schema.define(version: 2020_03_19_141600) do
     t.index ["survey_id"], name: "index_questions_on_survey_id"
   end
 
+  create_table "survey_answers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "survey_id"
+    t.uuid "user_id"
+    t.boolean "is_final"
+    t.date "date_answered"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.date "date_submitted"
+    t.index ["survey_id"], name: "index_survey_answers_on_survey_id"
+    t.index ["user_id"], name: "index_survey_answers_on_user_id"
+  end
+
+  create_table "survey_question_answers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "survey_answer_id"
+    t.uuid "question_id"
+    t.string "answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_survey_question_answers_on_question_id"
+    t.index ["survey_answer_id"], name: "index_survey_question_answers_on_survey_answer_id"
+  end
+
   create_table "surveys", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -127,4 +149,8 @@ ActiveRecord::Schema.define(version: 2020_03_19_141600) do
   add_foreign_key "patients", "users"
   add_foreign_key "question_options", "questions"
   add_foreign_key "questions", "surveys"
+  add_foreign_key "survey_answers", "surveys"
+  add_foreign_key "survey_answers", "users"
+  add_foreign_key "survey_question_answers", "questions"
+  add_foreign_key "survey_question_answers", "survey_answers"
 end

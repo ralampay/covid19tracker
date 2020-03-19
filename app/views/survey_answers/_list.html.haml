@@ -1,0 +1,24 @@
+%table.table.table-bordered
+  %thead
+    %tr
+      %th
+        Survey
+      %th
+        Questions
+      %th
+        Status
+  %tbody
+    - @survey_answers.each do |o|
+      %tr
+        %td
+          = link_to survey_answer_path(o) do
+            #{o.survey}
+        %td
+          #{o.survey.questions.size}
+        %td
+          - if o.is_final
+            .badge.badge-success
+              Submitted
+          - else
+            .badge.badge-danger
+              Unsubmitted

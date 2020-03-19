@@ -1,0 +1,9 @@
+%nav
+  %ol.breadcrumb
+    %li.breadcrumb-item
+      = link_to survey_answers_path do
+        .fa.fa-file
+        My Surveys
+    %li.breadcrumb-item
+      .fa.fa-check
+      Answering Survey #{@survey_answer.survey}

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  survey: one
+  user: one
+  is_final: false
+  date_answered: 2020-03-19
+
+two:
+  survey: two
+  user: two
+  is_final: false
+  date_answered: 2020-03-19

@@ -1,0 +1,24 @@
+= render partial: "index_header"
+
+.container-fluid
+  .row
+    .col
+      - if @survey_answers.size > 0
+        = render partial: "list"
+        = paginate @survey_answers
+      - else
+        %p
+          No survey answers yet.
+
+= render partial: "survey_answers/modals/new"
+
+= javascript_include_tag "survey_answers/Index.js"
+
+:javascript
+  $(document).ready(function() {
+    var authenticityToken = $("meta[name='csrf-token']").attr('content');
+
+    Index.init({
+      authenticityToken: authenticityToken
+    });
+  });

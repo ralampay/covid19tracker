@@ -11,6 +11,10 @@
             .fa.fa-users
             My Records
         %li.nav-item
+          = link_to survey_answers_path, class: 'nav-link' do
+            .fa.fa-file
+            My Surveys
+        %li.nav-item
           = link_to profile_path, class: 'nav-link' do
             .fa.fa-user
             Profile

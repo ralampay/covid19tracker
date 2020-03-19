@@ -1,0 +1,46 @@
+= render partial: "show_header"
+
+.container-fluid
+  .row
+    .col
+      %h2
+        #{@survey}
+      %hr
+      - @survey_answer.survey_question_answers.each do |o|
+        .card
+          .card-body
+            %h5
+              #{o.question.content}
+            %hr
+            - if o.question.question_type == "single"
+              - if !@survey_answer.is_final
+                - o.question.question_options.order("priority ASC").each do |option|
+                  = radio_button_tag("options-#{o.question.id}", option.val, checked: option.val == o.answer)
+                  #{option.label}
+                  %br
+              - else
+                %ul
+                  - o.question.question_options.order("priority ASC").each do |option|
+                    %li
+                      #{option}
+            - elsif o.question.question_type == "single-written"
+              = text_field_tag :answer, o.answer, class: "form-control"
+            - elsif o.question.question_type == "date"
+              = text_field_tag :answer, o.answer, class: "form-control", type: "date"
+            - elsif o.question.question_type == "numeric"
+              = text_field_tag :answer, o.answer, class: "form-control", type: "number"
+        %hr
+      - if !@survey_answer.is_final
+        .card.text-white.bg-info
+          .card-header
+            Delete Record
+          .card-body
+            %h5
+              Warning!
+            %p
+              Once you delete this record, this action cannot be undone. 
+            .pull-right
+              = link_to survey_answer_path(@survey_answer), class: 'btn btn-danger', method: :delete, data: { confirm: "Are you sure?" } do |o|
+                .fa.fa-times
+                Confirm Delete
+        %hr
