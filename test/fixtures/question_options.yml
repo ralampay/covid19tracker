@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  question: one
+  label: MyString
+  option_type: MyString
+  val: MyString
+  priority: 1
+
+two:
+  question: two
+  label: MyString
+  option_type: MyString
+  val: MyString
+  priority: 1

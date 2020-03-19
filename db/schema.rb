@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_19_140007) do
+ActiveRecord::Schema.define(version: 2020_03_19_141600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -77,6 +77,27 @@ ActiveRecord::Schema.define(version: 2020_03_19_140007) do
     t.index ["user_id"], name: "index_patients_on_user_id"
   end
 
+  create_table "question_options", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "question_id"
+    t.string "label"
+    t.string "option_type"
+    t.string "val"
+    t.integer "priority"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_question_options_on_question_id"
+  end
+
+  create_table "questions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "survey_id"
+    t.string "content"
+    t.string "question_type"
+    t.integer "priority"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["survey_id"], name: "index_questions_on_survey_id"
+  end
+
   create_table "surveys", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -104,4 +125,6 @@ ActiveRecord::Schema.define(version: 2020_03_19_140007) do
   add_foreign_key "establishments", "users"
   add_foreign_key "patients", "patients"
   add_foreign_key "patients", "users"
+  add_foreign_key "question_options", "questions"
+  add_foreign_key "questions", "surveys"
 end

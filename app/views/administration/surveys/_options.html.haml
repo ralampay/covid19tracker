@@ -1,0 +1,9 @@
+%ul
+  - question_options.each do |o|
+    %li
+      #{o.label} (#{o.val})
+      %small
+        = link_to edit_administration_survey_question_question_option_path(@survey, question, o) do
+          .fa.fa-pencil-alt
+        = link_to administration_survey_question_question_option_path(@survey, question, o), method: :delete, data: { confirm: "Are you sure?" } do
+          .fa.fa-times

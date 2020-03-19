@@ -1,7 +1,7 @@
 module Administration
   class SurveysController < ApplicationController
     before_action :authenticate_user!
-    # before_action :authenticate_admin!
+    before_action :authenticate_admin!
 
     def index
       @surveys = Survey.all
@@ -47,8 +47,9 @@ module Administration
     end
 
     def destroy
+      @survey = Survey.find(params[:id])
       @survey.destroy!
-      redirect_to surveys_path
+      redirect_to administration_surveys_path
     end
 
     def survey_params

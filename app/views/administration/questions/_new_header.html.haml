@@ -4,9 +4,9 @@
       .fa.fa-shield-alt
       Administration
     %li.breadcrumb-item
-      = link_to administration_surveys_path do
+      = link_to administration_survey_path(@survey) do
         .fa.fa-file
-        Surveys
+        Survey: #{@survey}
     %li.breadcrumb-item
       .fa.fa-plus
-      New Survey
+      New Question for #{@survey}

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  survey: one
+  content: MyString
+  question_type: MyString
+  priority: 1
+
+two:
+  survey: two
+  content: MyString
+  question_type: MyString
+  priority: 1

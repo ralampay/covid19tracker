@@ -1,0 +1,28 @@
+- questions.each_with_index do |o, i|
+  .card
+    .card-body
+      %h6
+        #{i+1}) #{o}
+        %small.text-muted
+          #{o.question_type}
+      %hr
+      - if ["single", "multiple"].include?(o.question_type)
+        - if o.question_options.size > 0
+          = render partial: "options", locals: { question: o, question_options: o.question_options.order("priority ASC") }
+        - else
+          %p
+            No options yet.
+        %hr
+        .btn-group
+          = link_to edit_administration_survey_question_path(@survey, o), class: 'btn' do
+            .fa.fa-pencil-alt
+            Edit Question
+          = link_to new_administration_survey_question_path(@survey, o), class: 'btn' do
+            .fa.fa-plus
+            Add Option
+          = link_to administration_survey_question_path(@survey, o), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn' do
+            .fa.fa-times
+            Delete Question
+      - else
+        %p
+          (No options for this type of question)

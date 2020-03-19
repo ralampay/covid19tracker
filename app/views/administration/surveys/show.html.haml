@@ -3,4 +3,23 @@
   %h3.text-muted
     #{@survey.name}
   .row
-    .col-md-12
+    .col
+      .card
+        .card-body
+          = link_to new_administration_survey_question_path(@survey) do
+            .fa.fa-plus
+            Add Question
+          %hr
+          - if @survey.questions.count > 0
+            = render partial: "questions", locals: { questions: @survey.questions.order("priority ASC") }
+          - else
+            %p
+              No questions yet.
+      %hr
+      .btn-group
+        = link_to edit_administration_survey_path(@survey), class: 'btn' do |o|
+          .fa.fa-pencil-alt
+          Edit Survey
+        = link_to administration_survey_path(@survey), class: 'btn', method: :delete, data: { confirm: "Are you sure?" } do |o|
+          .fa.fa-times
+          Delete
