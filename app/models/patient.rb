@@ -51,6 +51,14 @@ class Patient < ApplicationRecord
     "Others"
   ]
 
+  EXPOSURES = [
+    "Out of Country",
+    "Public",
+    "Hospital",
+    "Grocery",
+    "Others"
+  ]
+
   belongs_to :user
   belongs_to :patient, optional: true
 
