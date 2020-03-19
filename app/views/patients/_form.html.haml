@@ -23,6 +23,7 @@
     .col
       .form-group
         = f.association :patient, as: :select, collection: primary_patients(current_user, @patient), label: false, input_html: { class: 'form-control' }
+        = f.input :is_primary
   .row
     .col-md-4
       .form-group
@@ -122,7 +123,6 @@
         %h5
           Notes
         = f.input :notes, as: :text, input_html: { class: 'form-control' }, label: false
-        = f.input :is_primary
 
   %hr
   .row

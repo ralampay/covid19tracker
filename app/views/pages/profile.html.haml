@@ -18,6 +18,11 @@
                 #{current_user.last_name}
             %tr
               %th
+                Username:
+              %td
+                #{current_user.username}
+            %tr
+              %th
                 Group Name:
               %td
                 #{current_user.group_name}
@@ -35,4 +40,8 @@
                     %label
                       Confirm Password:
                     = password_field_tag :password, "", id: 'input-confirm-password', class: 'form-control'
-
+                  %hr
+                  #btn-change-password.btn.btn-info.btn-block
+                    .fa.fa-sync
+                    Change Password
+                
