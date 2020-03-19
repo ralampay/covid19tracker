@@ -1,0 +1,10 @@
+= render partial: "index_header"
+.container-fluid
+  .row
+    .col
+      - if @surveys.size > 0
+        = render partial: "index_list"
+        = paginate @surveys
+      - else
+        %p
+          No surveys yet.

@@ -1,0 +1,18 @@
+%div.table-responsive
+  %table.table.table-bordered.table
+    %thead
+      %tr
+        %th
+          Name
+        %th
+          Actions
+    %tbody
+      - @surveys.each do |s|
+        %tr
+          %td
+            #{s.name}
+          %td
+            = link_to administration_survey_path(s) do
+              .fa.fa-search
+              Details
+          

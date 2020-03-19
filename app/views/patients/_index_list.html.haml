@@ -1,66 +1,68 @@
-%table.table.table-bordered.table-sm
-  %thead
-    %tr
-      %th
-        Name
-      %th
-        Gender
-      %th
-        Age
-      %th
-        Symptoms
-      %th
-        Needs
-      %th
-        City
-      %th
-        Status
-      %th
-        Classification
-      %th
-        Is Positive?
-      %th.text-center
-        Actions
-  %tbody
-    - @patients.each do |p|
+%div.table-responsive
+  %table.table.table-bordered.table
+    %thead
       %tr
-        %td
-          #{p.full_name}
-        %td
-          #{p.gender}
-        %td
-          #{p.age}
-        %td
-          - if p.symptoms.present?
-            %ul
-              - p.symptoms.select{ |o| o.present? }.each do |s|
-                %li
-                  #{s}
-        %td
-          - if p.needs.present?
-            %ul
-              - p.needs.select{ |o| o.present? }.each do |s|
-                %li
-                  #{s}
-            - if p.needs_status == "manageable"
-              .badge.badge-info
-                Manageable
-            - elsif p.needs_status == "critical"
+        %th
+          Name
+        %th
+          Gender
+        %th
+          Age
+        %th
+          Symptoms
+        %th
+          Needs
+        %th
+          City
+        %th
+          Status
+        %th
+          Classification
+        %th
+          Is Positive?
+        %th.text-center
+          Actions
+    %tbody
+      - @patients.each do |p|
+        %tr
+          %td
+            #{p.full_name}
+          %td
+            #{p.gender}
+          %td
+            #{p.age}
+          %td
+            - if p.symptoms.present?
+              %ul
+                - p.symptoms.select{ |o| o.present? }.each do |s|
+                  %li
+                    #{s}
+          %td
+            - if p.needs.present?
+              %ul
+                - p.needs.select{ |o| o.present? }.each do |s|
+                  %li
+                    #{s}
+              - if p.needs_status == "manageable"
+                .badge.badge-info
+                  Manageable
+              - elsif p.needs_status == "critical"
+                .badge.badge-danger
+                  Critical
+          %td
+            #{p.city}
+          %td
+            #{p.status}
+          %td
+            #{p.classification}
+          %td
+            - if p.is_positive
               .badge.badge-danger
-                Critical
-        %td
-          #{p.city}
-        %td
-          #{p.status}
-        %td
-          #{p.classification}
-        %td
-          - if p.is_positive
-            .badge.badge-danger
-              Confirmed
-          - else
-            .badge.badge-info
-              Unconfirmed
-        %td.text-center
-          = link_to patient_path(p) do
-            .fa.fa-search
+                Confirmed
+            - else
+              .badge.badge-info
+                Unconfirmed
+          %td.text-center
+            = link_to patient_path(p) do
+              .fa.fa-search
+              Details

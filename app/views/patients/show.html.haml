@@ -1,130 +1,114 @@
 = render partial: "show_header"
-
 .container-fluid
+  %h3.text-muted
+    #{@patient.full_name}, #{@patient.gender}, #{@patient.age}
   .row
-    .col
-      .card
+    .col-md-12
+      %table.table.table-bordered.table-sm
+        %tbody
+          %tr
+            %th
+              Contact Number
+            %td
+              #{@patient.contact_number}
+          %tr
+            %th
+              Address
+            %td
+              #{@patient.address}
+          %tr
+            %th
+              Region
+            %td
+              #{@patient.region}
+          %tr
+            %th
+              Province
+            %td
+              #{@patient.province}
+          %tr
+            %th
+              City / Municipality
+            %td
+              #{@patient.city}
+          %tr
+            %th
+              Village / Barangay
+            %td
+              #{@patient.village}
+          %tr
+            %th
+              Symptoms
+            %td
+              %ul
+                - @patient.symptoms.select{ |o| o.present? }.each do |o|
+                  %li
+                    #{o}
+          %tr
+            %th
+              Status Checklist
+            %td
+              %ul
+                %li
+                  (#{@patient.access_to_transportation ? 'yes' : 'no'}) Access to Transportation
+                %li
+                  (#{@patient.access_to_food ? 'yes' : ''}) Access to Food
+                %li
+                  (#{@patient.receives_government_aid ? 'yes' : 'no'}) Receives Government Aid
+                %li
+                  (#{@patient.is_positive ? 'yes' : 'no'}) Is Positive with Covid19
+          %tr
+            %th
+              Date Last Exposed
+            %td
+              - if @patient.date_last_exposed.present?
+                #{@patient.date_last_exposed.strftime("%b %d, %Y")}
+          %tr
+            %th
+              Latest Exposure
+            %td
+              - if @patient.latest_exposure == "Others"
+                #{@patient.latest_exposure_specify}
+              - else
+                #{@patient.latest_exposure}
+          %tr
+            %th
+              Action Taken
+            %td
+              - if @patient.action_taken == "Others"
+                #{@patient.other_action_taken}
+              - else
+                #{@patient.action_taken}
+          %tr
+            %th
+              Needs
+            %td
+              %ul
+                - @patient.needs.select{ |o| o.present? }.each do |o|
+                  %li
+                    #{o}
+              - if @patient.needs_status == "manageable"
+                .badge.badge-info
+                  Manageable
+              - elsif @patient.needs_status == "critical"
+                .badge.badge-danger
+                  Critical
+          %tr
+            %th
+              Notes
+            %td
+              #{@patient.notes}
+      %hr
+      .card.text-white.bg-info
+        .card-header
+          Delete Record
         .card-body
-          %table.table.table-bordered.table-sm
-            %tbody
-              %tr
-                %th
-                  Name
-                %td
-                  #{@patient.full_name}
-              %tr
-                %th
-                  Gender
-                %td
-                  #{@patient.gender}
-              %tr
-                %th
-                  Age
-                %td
-                  #{@patient.age}
-              %tr
-                %th
-                  Contact Number
-                %td
-                  #{@patient.contact_number}
-              %tr
-                %th
-                  Address
-                %td
-                  #{@patient.address}
-              %tr
-                %th
-                  Region
-                %td
-                  #{@patient.region}
-              %tr
-                %th
-                  Province
-                %td
-                  #{@patient.province}
-              %tr
-                %th
-                  City / Municipality
-                %td
-                  #{@patient.city}
-              %tr
-                %th
-                  Village / Barangay
-                %td
-                  #{@patient.village}
-              %tr
-                %th
-                  Symptoms
-                %td
-                  %ul
-                    - @patient.symptoms.select{ |o| o.present? }.each do |o|
-                      %li
-                        #{o}
-              %tr
-                %th
-                  Status Checklist
-                %td
-                  %ul
-                    %li
-                      (#{@patient.access_to_transportation ? 'yes' : 'no'}) Access to Transportation
-                    %li
-                      (#{@patient.access_to_food ? 'yes' : ''}) Access to Food
-                    %li
-                      (#{@patient.receives_government_aid ? 'yes' : 'no'}) Receives Government Aid
-                    %li
-                      (#{@patient.is_positive ? 'yes' : 'no'}) Is Positive with Covid19
-              %tr
-                %th
-                  Date Last Exposed
-                %td
-                  - if @patient.date_last_exposed.present?
-                    #{@patient.date_last_exposed.strftime("%b %d, %Y")}
-              %tr
-                %th
-                  Latest Exposure
-                %td
-                  - if @patient.latest_exposure == "Others"
-                    #{@patient.latest_exposure_specify}
-                  - else
-                    #{@patient.latest_exposure}
-              %tr
-                %th
-                  Action Taken
-                %td
-                  - if @patient.action_taken == "Others"
-                    #{@patient.other_action_taken}
-                  - else
-                    #{@patient.action_taken}
-              %tr
-                %th
-                  Needs
-                %td
-                  %ul
-                    - @patient.needs.select{ |o| o.present? }.each do |o|
-                      %li
-                        #{o}
-                  - if @patient.needs_status == "manageable"
-                    .badge.badge-info
-                      Manageable
-                  - elsif @patient.needs_status == "critical"
-                    .badge.badge-danger
-                      Critical
-              %tr
-                %th
-                  Notes
-                %td
-                  #{@patient.notes}
-          %hr
-          .card.text-white.bg-info
-            .card-header
-              Delete Record
-            .card-body
-              %h5
-                Warning!
-              %p
-                Once you delete this record, this action cannot be undone. 
-              .pull-right
-                = link_to patient_path(@patient), class: 'btn btn-danger', method: :delete, data: { confirm: "Are you sure?" } do |o|
-                  .fa.fa-times
-                  Confirm Delete
-          %hr
+          %h5
+            Warning!
+          %p
+            Once you delete this record, this action cannot be undone. 
+          .pull-right
+            = link_to patient_path(@patient), class: 'btn btn-danger', method: :delete, data: { confirm: "Are you sure?" } do |o|
+              .fa.fa-times
+              Confirm Delete
+      %hr

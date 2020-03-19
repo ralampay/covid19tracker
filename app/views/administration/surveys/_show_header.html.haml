@@ -1,0 +1,11 @@
+%nav
+  %ol.breadcrumb
+    %li.breadcrumb-item
+      = link_to administration_surveys_path do
+        .fa.fa-users
+        My Records
+  
+    %li.ml-auto
+      = link_to edit_administration_survey_path(@survey)  do |o|
+        .fa.fa-pencil-alt
+        Edit Survey
