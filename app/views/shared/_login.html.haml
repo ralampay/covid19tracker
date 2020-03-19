@@ -1,23 +1,20 @@
 - if !user_signed_in?
-  .row
-    .col
-      .form-group
-        %label
-          Email / Username
-        = text_field_tag :email, "", id: 'input-email', class: 'form-control', placeholder: 'Email'
-    .col
-      .form-group
-        %label
-          Password
-        = password_field_tag :password, "", id: 'input-password', class: 'form-control', placeholder: 'Password'
-    .col
-      .form-group
-        %label
-        #btn-login.btn.btn-info.btn-block
-          .fa.fa-upload
-          Login
+  .input-group-prepend
+    %span.input-group-text
+      @
+    = text_field_tag :email, "", id: 'input-email', class: 'form-control', placeholder: 'Email / Username'
+  .input-group-prepend
+    %span.input-group-text
+      .fa.fa-lock
+    = password_field_tag :password, "", id: 'input-password', class: 'form-control', placeholder: 'Password'
+  #btn-login.btn.btn-info
+    .fa.fa-upload
+    Login
 - else
-  %p
-    Welcome #{current_user}! 
-    = link_to destroy_user_session_path, method: :delete do
-      Logout
+  .nav.navbar-nav.pull-md-right
+    %ul.nav.navbar-nav
+      %li.nav-item
+        .navbar-text
+          = link_to destroy_user_session_path, method: :delete, class: 'navbar-link' do
+            .fa.fa-times
+            Logout

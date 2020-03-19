@@ -5,10 +5,13 @@
     .col
       .card
         .card-body
-          %h3
-            #{@patient.full_name}
-          %table.table.table-bordered
+          %table.table.table-bordered.table-sm
             %tbody
+              %tr
+                %th
+                  Name
+                %td
+                  #{@patient.full_name}
               %tr
                 %th
                   Gender
@@ -19,6 +22,16 @@
                   Age
                 %td
                   #{@patient.age}
+              %tr
+                %th
+                  Contact Number
+                %td
+                  #{@patient.contact_number}
+              %tr
+                %th
+                  Address
+                %td
+                  #{@patient.address}
               %tr
                 %th
                   Region
@@ -88,9 +101,16 @@
                 %td
                   #{@patient.notes}
           %hr
-          = link_to edit_patient_path(@patient) do |o|
-            .fa.fa-pencil-alt
-            Edit
-          = link_to patient_path(@patient), method: :delete, data: { confirm: "Are you sure?" } do |o|
-            .fa.fa-times
-            Delete
+          .card.text-white.bg-info
+            .card-header
+              Delete Record
+            .card-body
+              %h5
+                Warning!
+              %p
+                Once you delete this record, this action cannot be undone. 
+              .pull-right
+                = link_to patient_path(@patient), class: 'btn btn-danger', method: :delete, data: { confirm: "Are you sure?" } do |o|
+                  .fa.fa-times
+                  Confirm Delete
+          %hr

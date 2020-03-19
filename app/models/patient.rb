@@ -61,16 +61,27 @@ class Patient < ApplicationRecord
   validates :city, presence: true
   validates :village, presence: true
   #validates :temperature, presence: true, numericality: true
-  validates :date_of_birth, presence: true
+  #validates :date_of_birth, presence: true
   validates :gender, presence: true, inclusion: { in: GENDERS }
   validates :classification, presence: true, inclusion: { in: CLASSIFICATIONS }
   validates :action_taken, presence: true, inclusion: { in: ACTIONS_TAKEN }
   validates :other_action_taken, presence: true, if: :other_action_taken?
+  validate :is_primary_valid
 
   serialize :symptoms, Array
   serialize :needs, Array
 
   before_validation :load_defaults
+
+  def is_primary_valid
+    if self.patient.present? and self.is_primary == true
+      errors.add(:is_primary, "Cannot be primary since associated with another primary record")
+    end
+  end
+
+  def to_s
+    full_name
+  end
 
   def load_defaults
   end
@@ -85,6 +96,10 @@ class Patient < ApplicationRecord
   
   # TODO: Proper computation of age
   def age
-    Date.today.year - self.date_of_birth.year
+    if self.date_of_birth.present?
+      Date.today.year - self.date_of_birth.year
+    else
+      "N/A"
+    end
   end
 end

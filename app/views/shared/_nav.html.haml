@@ -1,12 +1,13 @@
-.row
-  .col
-    %ul
-      %li
-        = link_to root_path do
-          Home
+%nav.navbar.navbar-expand-lg.navbar-dark.bg-info
+  = link_to root_path, class: "navbar-brand" do
+    Covid19 Crisis Tracker
+  %button.navbar-toggler{ data: { toggle: "collapse", target: "#navbar-nav" } }
+    %span.navbar-toggler-icon
+  #navbar-nav.collapse.navbar-collapse
+    %ul.navbar-nav
       - if user_signed_in?
-        %li
-          = link_to patients_path do
-            My Patients
-  .col
-    = render partial: "shared/login"
+        %li.nav-item
+          = link_to patients_path, class: 'nav-link' do
+            .fa.fa-users
+            My Records
+  = render partial: "shared/login"

@@ -1,4 +1,9 @@
-= link_to patients_path do
-  Patients
-|
-Edit Patient #{@patient.full_name}
+%nav
+  %ol.breadcrumb
+    %li.breadcrumb-item
+      = link_to patients_path do
+        .fa.fa-users
+        My Records
+    %li.breadcrumb-item
+      .fa.fa-pencil-alt
+      Edit Record #{@patient.full_name}

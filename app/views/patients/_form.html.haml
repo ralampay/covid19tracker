@@ -17,13 +17,22 @@
     .col-md-5
       .form-group
         = f.input :last_name, input_html: { class: 'form-control' }
+  %h5
+    Associated With
   .row
-    .col-md-6
+    .col
+      .form-group
+        = f.association :patient, as: :select, collection: primary_patients(current_user, @patient), label: false, input_html: { class: 'form-control' }
+  .row
+    .col-md-4
       .form-group
         = f.input :gender, as: :select, collection: Patient::GENDERS, input_html: { class: 'form-control' }
-    .col-md-6
+    .col-md-4
       .form-group
         = f.input :date_of_birth, as: :string, input_html: { class: 'form-control', type: 'date' }
+    .col-md-4
+      .form-group
+        = f.input :contact_number, as: :string, input_html: { class: 'form-control' }
   .row
     .col-md-3
       .form-group
@@ -74,6 +83,8 @@
         = f.input :receives_government_aid
       .form-group
         = f.input :is_positive, label: "Is Positive with Covid19"
+      .form-group
+        = f.input :is_deceased
   .row
     .col
       .form-group

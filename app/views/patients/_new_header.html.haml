@@ -1,4 +1,9 @@
-= link_to patients_path do
-  Patients
-|
-New Patient
+%nav
+  %ol.breadcrumb
+    %li.breadcrumb-item
+      = link_to patients_path do
+        .fa.fa-users
+        My Records
+    %li.breadcrumb-item
+      .fa.fa-plus
+      New Record

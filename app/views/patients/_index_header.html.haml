@@ -1,3 +1,9 @@
-= link_to new_patient_path do
-  .fa.fa-plus
-  New Patient
+%nav
+  %ol.breadcrumb
+    %li.breadcrumb-item
+      .fa.fa-users
+      My Records
+    %li.ml-auto
+      = link_to new_patient_path do
+        .fa.fa-plus
+        New Record
