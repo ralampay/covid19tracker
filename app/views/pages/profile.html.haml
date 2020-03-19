@@ -25,7 +25,22 @@
               %th
                 Group Name:
               %td
-                #{current_user.group_name}
+                .form-group
+                  = text_field_tag :group_name, current_user.group_name, id: 'input-group-name', class: 'form-control'
+                  %span
+                    #btn-save-group-name.btn.btn-info
+                      .fa.fa-check
+                      Save Group Name
+            %tr
+              %th
+                Company Name:
+              %td
+                .form-group
+                  = text_field_tag :company, current_user.company, id: 'input-company-name', class: 'form-control'
+                  %span
+                    #btn-save-company.btn.btn-info
+                      .fa.fa-check
+                      Save Company Name
           .card
             .card-body
               %h4
