@@ -4,6 +4,27 @@
     .col
       %h1
         Welcome to Covid19 Response Hub
+
+      - if ENV['STAGING'].present?
+        .card.text-white.bg-danger
+          .card-body
+            %h5
+              Warning!
+            %p
+              This is only a staging site. The official version will be released to public as soon as some features are already in place and use for public consumption.
+            %p
+              In the meantime, you may try it out using the following credentials:
+            %ul
+              %li
+                %span.text-bold
+                  Username: 
+                test
+              %li
+                %span.text-bold
+                  Password:
+                password
+      %hr
+
       %h4
         Establishments in Need
       %p
