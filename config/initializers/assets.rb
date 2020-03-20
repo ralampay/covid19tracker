@@ -15,6 +15,7 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 
 Rails.application.config.assets.precompile += %w(
   patients/Form.js
+  establishments/Form.js
   survey_answers/Index.js
   survey_answers/Show.js
 )

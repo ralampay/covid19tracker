@@ -1,0 +1,10 @@
+= render partial: "index_header"
+.container-fluid
+  .row
+    .col
+      - if @establishments.size > 0
+        = render partial: "index_list"
+        = paginate @establishments
+      - else
+        %p
+          No establishments yet.

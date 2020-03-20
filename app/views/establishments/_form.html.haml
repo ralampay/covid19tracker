@@ -1,0 +1,68 @@
+= simple_form_for @establishment do |f|
+  .row
+    .col
+      .form-group
+        = f.input :name, label: 'Name of Establishment', input_html: { class: 'form-control' }
+      .form-group
+        = f.input :contact_person, input_html: { class: 'form-control' }
+      .form-group
+        = f.input :contact_number, input_html: { class: 'form-control' }
+      .form-group
+        = f.input :address, input_html: { class: 'form-control' }
+  .row
+    .col-md-3
+      .form-group
+        = f.input :region, as: :select, collection: [], input_html: { id: 'select-region', class: 'form-control' }
+    .col-md-3
+      .form-group
+        = f.input :province, as: :select, collection: [], input_html: { id: 'select-province', class: 'form-control' }
+    .col-md-3
+      .form-group
+        = f.input :city, as: :select, collection: [], input_html: { id: 'select-city', class: 'form-control' }, label: "City / Municipality"
+    .col-md-3
+      .form-group
+        = f.input :village, as: :select, collection: [], label: "Barangay", input_html: { id: 'select-village', class: 'form-control' }
+  .row
+    .col-md-3
+      .form-group
+        = f.input :number_of_people_in_need, input_html: { class: 'form-control' }
+    .col-md-3
+      .form-group
+        %label
+          * Needs
+        = f.input :needs, as: :check_boxes, collection: Patient::NEEDS, label: false
+    .col-md-3
+      .form-group
+        %label
+          * Severity
+        = f.input :severity, as: :select, collection: Patient::NEEDS_STATUS, label: false, input_html: { class: 'form-control' }
+  %hr
+  .row
+    .col
+      %button{ type: "submit", class: "btn btn-info" }
+        .fa.fa-check
+        Save
+      = link_to establishments_path, class: "btn btn-danger" do
+        .fa.fa-times
+        Cancel
+
+#parameters{ data: { data: @data.to_json, region: @establishment.region, province: @establishment.province, city: @establishment.city, village: @establishment.village } }
+= javascript_include_tag "establishments/Form.js"
+
+:javascript
+  $(document).ready(function() {
+    var $parameters = $("#parameters");
+    var data        = $parameters.data('data');
+    var region      = $parameters.data('region');
+    var province    = $parameters.data('province');
+    var city        = $parameters.data('city');
+    var village     = $parameters.data('village');
+
+    Form.init({
+      data: data,
+      region: region,
+      province: province,
+      city: city,
+      village: village
+    });
+  });

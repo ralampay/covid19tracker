@@ -1,0 +1,71 @@
+= render partial: "show_header"
+.container-fluid
+  %h3.text-muted
+    #{@establishment}
+  .row
+    .col-md-12
+      %table.table.table-bordered.table-sm
+        %tbody
+          %tr
+            %th
+              Contact Number
+            %td
+              #{@establishment.contact_number}
+          %tr
+            %th
+              Address
+            %td
+              #{@establishment.address}
+          %tr
+            %th
+              Region
+            %td
+              #{@establishment.region}
+          %tr
+            %th
+              Province
+            %td
+              #{@establishment.province}
+          %tr
+            %th
+              City / Municipality
+            %td
+              #{@establishment.city}
+          %tr
+            %th
+              Village / Barangay
+            %td
+              #{@establishment.village}
+          %tr
+            %th
+              Number of People in Need
+            %td
+              #{@establishment.number_of_people_in_need}
+          %tr
+            %th
+              Needs
+            %td
+              %ul
+                - @establishment.needs.select{ |o| o.present? }.each do |o|
+                  %li
+                    #{o}
+              - if @establishment.severity == "manageable"
+                .badge.badge-info
+                  Manageable
+              - elsif @establishment.severity == "critical"
+                .badge.badge-danger
+                  Critical
+      %hr
+      .card.text-white.bg-info
+        .card-header
+          Delete Record
+        .card-body
+          %h5
+            Warning!
+          %p
+            Once you delete this record, this action cannot be undone. 
+          .pull-right
+            = link_to establishment_path(@establishment), class: 'btn btn-danger', method: :delete, data: { confirm: "Are you sure?" } do |o|
+              .fa.fa-times
+              Confirm Delete
+      %hr

@@ -6,6 +6,8 @@ class PagesController < ApplicationController
     @patients = @patients.order("updated_at DESC")
 
     @patients = @patients.page(params[:page]).per(20)
+
+    @establishments = Establishment.all
   end
 
   def profile

@@ -1,5 +1,5 @@
 %div.table-responsive
-  %table.table.table-bordered.table
+  %table.table.table-bordered.table.table-sm
     %thead
       %tr
         %th
@@ -41,6 +41,12 @@
                 - p.needs.select{ |o| o.present? }.each do |s|
                   %li
                     #{s}
+            - if p.needs_status == "manageable"
+              .badge.badge-info
+                Manageable
+            - elsif p.needs_status == "critical"
+              .badge.badge-danger
+                Critical
           %td
             #{p.city}
           %td

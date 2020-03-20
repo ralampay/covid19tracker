@@ -1,0 +1,44 @@
+%div.table-responsive
+  %table.table.table-bordered.table.table-sm
+    %thead
+      %tr
+        %th
+          Name
+        %th
+          Contact Person
+        %th
+          Contact Number
+        %th
+          Address
+        %th
+          Needs
+        %th
+          Severity
+        %th
+          Last Updated
+    %tbody
+      - @establishments.each do |o|
+        %tr
+          %td
+            #{o.name}
+          %td
+            #{o.contact_person}
+          %td
+            #{o.contact_number}
+          %td
+            #{o.address}
+          %td
+            - if o.needs.present?
+              %ul
+                - o.needs.select{ |o| o.present? }.each do |s|
+                  %li
+                    #{s}
+          %td
+            - if o.severity == "manageable"
+              .badge.badge-info
+                Manageable
+            - elsif o.severity == "critical"
+              .badge.badge-danger
+                Critical
+          %td
+            #{o.updated_at.strftime("%b %d, %Y")}
