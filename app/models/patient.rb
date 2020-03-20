@@ -36,7 +36,8 @@ class Patient < ApplicationRecord
     "disinfection",
     "hygiene",
     "medical supplies",
-    "transportation"
+    "transportation",
+    "Covid19 test kit"
   ]
 
   NEEDS_STATUS = [
