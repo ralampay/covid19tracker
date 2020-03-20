@@ -6,6 +6,8 @@
       %th
         Questions
       %th
+        Last Updated
+      %th
         Status
   %tbody
     - @survey_answers.each do |o|
@@ -15,6 +17,8 @@
             #{o.survey}
         %td
           #{o.survey.questions.size}
+        %td
+          #{o.updated_at.strftime("%b %d, %Y")}
         %td
           - if o.is_final
             .badge.badge-success

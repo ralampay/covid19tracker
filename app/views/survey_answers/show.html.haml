@@ -15,29 +15,29 @@
             - if o.question.question_type == "single"
               - if !@survey_answer.is_final
                 - o.question.question_options.order("priority ASC").each do |option|
-                  = radio_button_tag("options-#{o.question.id}", option.val, option.val == o.answer)
+                  = radio_button_tag("options-#{o.question.id}", option.val, option.val == o.answer, class: "radio-selection", data: { val: "#{option.val}", target: "#answer-#{o.id}" })
                   #{option.label}
                   %br
-                = text_field_tag :answer, o.answer, class: "form-control", id: "answer-#{o.id}"
+                = hidden_field_tag :answer, o.answer, class: "form-control", id: "answer-#{o.id}"
                 %hr
-                .btn.btn-info.btn-block.btn-submit{ data: { id: o.id, target: "answer-#{o.id}" } }
+                .btn.btn-info.btn-block.btn-submit{ data: { id: o.id, target: "#answer-#{o.id}" } }
                   .fa.fa-check
                   Save Answer
               - else
                 %ul
                   - o.question.question_options.order("priority ASC").each do |option|
                     %li
-                      #{option}
+                      #{option.label}
                 #{o.answer}
             - elsif o.question.question_type == "multiple"
               - if !@survey_answer.is_final
                 - o.question.question_options.order("priority ASC").each do |option|
-                  = check_box_tag("option-#{option.id}", option.val, o.answer.split(",").include?(option.val == o.answer))
+                  = check_box_tag("option-#{option.id}", option.val, o.answer.split(",").include?(option.val), class: "check-box-selection cb-group-#{o.question.id}", data: { val: "#{option.val}", target: "#answer-#{o.id}", group_target: ".cb-group-#{o.question.id}" })
                   #{option.label}
                   %br
-                = text_field_tag :answer, o.answer, class: "form-control", id: "answer-#{o.id}"
+                = hidden_field_tag :answer, o.answer, class: "form-control", id: "answer-#{o.id}"
                 %hr
-                .btn.btn-info.btn-block.btn-submit{ data: { id: o.id, target: "answer-#{o.id}" } }
+                .btn.btn-info.btn-block.btn-submit{ data: { id: o.id, target: "#answer-#{o.id}" } }
                   .fa.fa-check
                   Save Answer
               - else
@@ -46,7 +46,7 @@
               - if !@survey_answer.is_final
                 = text_field_tag :answer, o.answer, class: "form-control", id: "answer-#{o.id}"
                 %hr
-                .btn.btn-info.btn-block.btn-submit{ data: { id: o.id, target: "answer-#{o.id}" } }
+                .btn.btn-info.btn-block.btn-submit{ data: { id: o.id, target: "#answer-#{o.id}" } }
                   .fa.fa-check
                   Save Answer
               - else
@@ -55,7 +55,7 @@
               - if !@survey_answer.is_final
                 = text_field_tag :answer, o.answer, class: "form-control", type: "date", id: "answer-#{o.id}"
                 %hr
-                .btn.btn-info.btn-block.btn-submit{ data: { id: o.id, target: "answer-#{o.id}" } }
+                .btn.btn-info.btn-block.btn-submit{ data: { id: o.id, target: "#answer-#{o.id}" } }
                   .fa.fa-check
                   Save Answer
               - else
@@ -64,7 +64,7 @@
               - if !@survey_answer.is_final
                 = text_field_tag :answer, o.answer, class: "form-control", type: "number", id: "answer-#{o.id}"
                 %hr
-                .btn.btn-info.btn-block.btn-submit{ data: { id: o.id, target: "answer-#{o.id}" } }
+                .btn.btn-info.btn-block.btn-submit{ data: { id: o.id, target: "#answer-#{o.id}" } }
                   .fa.fa-check
                   Save Answer
               - else
@@ -74,7 +74,7 @@
         %p
           This survey has already been answered
       - else
-        #btn-finalize.btn.btn-success.btn-block
+        #btn-finalize.btn.btn-success.btn-block{ data: { id: @survey_answer.id } }
           .fa.fa-check
           Finalize
         %hr

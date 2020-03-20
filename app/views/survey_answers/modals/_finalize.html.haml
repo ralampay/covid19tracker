@@ -11,6 +11,6 @@
               %p
                 Are you sure you want to finalize all answers?
       .modal-footer
-        %button#btn-confirm-finalize.btn.btn-primary
+        %button#btn-confirm-finalize.btn.btn-primary{ data: { id: @survey_answer.id } }
           .fa.fa-check
           Confirm

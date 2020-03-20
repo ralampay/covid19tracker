@@ -13,6 +13,23 @@ module Api
 
         render json: { id: survey_answer.id }
       end
+
+      def submit_answer
+        survey_question_answer  = SurveyQuestionAnswer.find(params[:id])
+        answer                  = params[:answer]
+
+        survey_question_answer.update!(answer: answer)
+
+        render json: { message: "ok" }
+      end
+
+      def finalize
+        survey_answer = SurveyAnswer.find(params[:id])
+
+        survey_answer.update!(is_final: true, date_submitted: Date.today)
+
+        render json: { message: "ok" }
+      end
     end
   end
 end
