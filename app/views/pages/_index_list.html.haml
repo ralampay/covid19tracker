@@ -18,8 +18,6 @@
           Status
         %th
           Classification
-        %th
-          Is Positive?
     %tbody
       - @patients.each do |p|
         %tr
@@ -53,10 +51,3 @@
             #{p.status}
           %td
             #{p.classification}
-          %td
-            - if p.is_positive
-              .badge.badge-danger
-                Confirmed
-            - else
-              .badge.badge-info
-                Unconfirmed
