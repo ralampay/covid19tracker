@@ -1,0 +1,61 @@
+= render partial: "register_header"
+
+.container-fluid
+  .row
+    .col
+      %h3
+        Registration Form
+      .card
+        .card-body
+          .message
+          .row
+            .col-md-6
+              .form-group
+                %label
+                  * First Name:
+                = text_field_tag :first_name, "", class: "form-control", id: "input-first-name"
+            .col-md-6
+              .form-group
+                %label
+                  * Last Name:
+                = text_field_tag :last_name, "", class: "form-control", id: "input-last-name"
+          .row
+            .col-md-6
+              .form-group
+                %label
+                  * Username:
+                = text_field_tag :username, "", class: "form-control", id: "input-username"
+            .col-md-6
+              .form-group
+                %label
+                  * Email:
+                = text_field_tag :email, "", class: "form-control", id: "input-reg-email"
+          .row
+            .col-md-6
+              .form-group
+                %label
+                  * Password:
+                = password_field_tag :password, "", class: "form-control", id: "input-reg-password"
+            .col-md-6
+              .form-group
+                %label
+                  * Password Confirmation:
+                = password_field_tag :password_confirmation, "", class: "form-control", id: "input-password-confirmation"
+          %hr
+          #btn-register.btn.btn-success
+            .fa.fa-check
+            Register
+          = link_to root_path, class: "btn btn-danger" do
+            .fa.fa-times
+            Cancel
+
+= javascript_include_tag "Register.js"
+
+:javascript
+  $(document).ready(function() {
+    var authenticityToken = $("meta[name='csrf-token']").attr('content');
+
+    Register.init({
+      authenticityToken: authenticityToken
+    });
+  });

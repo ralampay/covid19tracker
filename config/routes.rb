@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   root to: "pages#index"
   get "/profile", to: "pages#profile", as: :profile
+  get "/register", to: "pages#register", as: :register
 
   resources :patients
   resources :establishments

@@ -1,6 +1,30 @@
 module Api
   module V1
     class UsersController < ApplicationController
+      def register
+        first_name            = params[:first_name]
+        last_name             = params[:last_name]
+        username              = params[:username]
+        email                 = params[:email]
+        password              = params[:password]
+        password_confirmation = params[:password_confirmation]
+
+        errors  = ::Users::ValidateRegister.new(
+                    first_name: first_name,
+                    last_name: last_name,
+                    username: username,
+                    email: email,
+                    password: password,
+                    password_confirmation: password_confirmation
+                  ).execute!
+
+        if errors.size > 0
+          render json: { errors: errors }, status: 400
+        else
+          render json: { message: "ok" }
+        end
+      end
+
       def login
         email     = params[:email]
         password  = params[:password]
