@@ -14,7 +14,7 @@ module Users
                 confirmation_token: "#{SecureRandom.hex(32)}"
               )
 
-      @host = ENV['HOST'] || "http://localhost:3000/confirm"
+      @host = ENV['HOST'] || "http://localhost:3000"
     end
 
     def execute!
@@ -26,7 +26,7 @@ module Users
         subject = "Email Confirmation"
         content = Content.new(
                     type: "text/html",
-                    value: "<h2>Please Click to Confirm</h2><a href='#{@host}/#{@user.confirmation_token}' target='_blank'>Confirm Now</a>"
+                    value: "<h2>Please Click to Confirm</h2><a href='#{@host}/confirm/#{@user.confirmation_token}' target='_blank'>Confirm Now</a>"
                   )
 
         mail      = Mail.new(from, subject, to, content)
