@@ -18,7 +18,7 @@
                   = radio_button_tag("options-#{o.question.id}", option.val, option.val == o.answer, class: "radio-selection", data: { val: "#{option.val}", target: "#answer-#{o.id}" })
                   #{option.label}
                   %br
-                = hidden_field_tag :answer, o.answer, class: "form-control", id: "answer-#{o.id}"
+                = hidden_field_tag :answer, o.answer, class: "form-control answer", id: "answer-#{o.id}", data: { id: o.id }
                 %hr
                 .btn.btn-info.btn-block.btn-submit{ data: { id: o.id, target: "#answer-#{o.id}" } }
                   .fa.fa-check
@@ -35,7 +35,7 @@
                   = check_box_tag("option-#{option.id}", option.val, o.answer.split(",").include?(option.val), class: "check-box-selection cb-group-#{o.question.id}", data: { val: "#{option.val}", target: "#answer-#{o.id}", group_target: ".cb-group-#{o.question.id}" })
                   #{option.label}
                   %br
-                = hidden_field_tag :answer, o.answer, class: "form-control", id: "answer-#{o.id}"
+                = hidden_field_tag :answer, o.answer, class: "form-control answer", id: "answer-#{o.id}", data: { id: o.id }
                 %hr
                 .btn.btn-info.btn-block.btn-submit{ data: { id: o.id, target: "#answer-#{o.id}" } }
                   .fa.fa-check
@@ -44,7 +44,7 @@
                 #{o.answer}
             - elsif o.question.question_type == "single-written"
               - if !@survey_answer.is_final
-                = text_field_tag :answer, o.answer, class: "form-control", id: "answer-#{o.id}"
+                = text_field_tag :answer, o.answer, class: "form-control answer", id: "answer-#{o.id}", data: { id: o.id }
                 %hr
                 .btn.btn-info.btn-block.btn-submit{ data: { id: o.id, target: "#answer-#{o.id}" } }
                   .fa.fa-check
@@ -53,7 +53,7 @@
                 #{o.answer}
             - elsif o.question.question_type == "date"
               - if !@survey_answer.is_final
-                = text_field_tag :answer, o.answer, class: "form-control", type: "date", id: "answer-#{o.id}"
+                = text_field_tag :answer, o.answer, class: "form-control answer", type: "date", id: "answer-#{o.id}", data: { id: o.id }
                 %hr
                 .btn.btn-info.btn-block.btn-submit{ data: { id: o.id, target: "#answer-#{o.id}" } }
                   .fa.fa-check
@@ -62,7 +62,7 @@
                 #{o.answer}
             - elsif o.question.question_type == "numeric"
               - if !@survey_answer.is_final
-                = text_field_tag :answer, o.answer, class: "form-control", type: "number", id: "answer-#{o.id}"
+                = text_field_tag :answer, o.answer, class: "form-control answer", type: "number", id: "answer-#{o.id}", data: { id: o.id }
                 %hr
                 .btn.btn-info.btn-block.btn-submit{ data: { id: o.id, target: "#answer-#{o.id}" } }
                   .fa.fa-check

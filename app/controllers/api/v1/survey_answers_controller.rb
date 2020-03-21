@@ -25,6 +25,13 @@ module Api
 
       def finalize
         survey_answer = SurveyAnswer.find(params[:id])
+        answers       = JSON.parse(params[:answers])
+        
+        answers.each do |a|
+          survey_answer.survey_question_answers.where(
+            id: a["id"]
+          ).first.update!(answer: a["answer"])
+        end
 
         survey_answer.update!(is_final: true, date_submitted: Date.today)
 

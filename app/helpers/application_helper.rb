@@ -13,4 +13,10 @@ module ApplicationHelper
 
     patients
   end
+
+  def classification_count_by_city(classification)
+    MatViewCityCountClassification.where(
+      classification: classification
+    ).where("count > 0")
+  end
 end

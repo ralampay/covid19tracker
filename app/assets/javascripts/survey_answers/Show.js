@@ -6,6 +6,7 @@ var Show  = (function() {
   var $btnFinalize;
   var $btnConfirmFinalize;
   var $radioSelection;
+  var $answer;
 
   var _cacheDom = function() {
     $modalFinalize      = $("#modal-finalize");
@@ -14,6 +15,7 @@ var Show  = (function() {
     $btnConfirmFinalize = $("#btn-confirm-finalize");
     $radioSelection     = $(".radio-selection");
     $checkBoxSelection  = $(".check-box-selection");
+    $answer             = $(".answer");
   };
 
   var _bindEvents = function() {
@@ -63,6 +65,15 @@ var Show  = (function() {
     $btnConfirmFinalize.on("click", function() {
       var id = $(this).data("id");
 
+      var answers = [];
+
+      $answer.each(function() {
+        answers.push({
+          id: $(this).data("id"),
+          answer: $(this).val()
+        });
+      });
+
       $(this).prop("disabled", true);
 
       $.ajax({
@@ -70,7 +81,8 @@ var Show  = (function() {
         method: "POST",
         data: {
           id: id,
-          authenticity_token: _authenticityToken
+          authenticity_token: _authenticityToken,
+          answers: JSON.stringify(answers)
         },
         success: function(response) {
           window.location.reload();
