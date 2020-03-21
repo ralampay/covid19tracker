@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_20_103059) do
+ActiveRecord::Schema.define(version: 2020_03_19_160257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -36,9 +36,6 @@ ActiveRecord::Schema.define(version: 2020_03_20_103059) do
     t.datetime "updated_at", null: false
     t.uuid "user_id"
     t.index ["user_id"], name: "index_establishments_on_user_id"
-  end
-
-  create_table "materialized_view_city_count_classifications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
   end
 
   create_table "patients", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

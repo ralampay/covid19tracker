@@ -18,8 +18,4 @@ class CreateMaterializedViewCityCountClassifications < ActiveRecord::Migration[5
       DROP MATERIALIZED VIEW mat_view_city_count_classifications
     SQL
   end
-  def change
-    create_table :materialized_view_city_count_classifications, id: :uuid do |t|
-    end
-  end
 end
