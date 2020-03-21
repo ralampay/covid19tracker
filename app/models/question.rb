@@ -9,6 +9,7 @@ class Question < ApplicationRecord
 
   belongs_to :survey
   has_many :question_options, dependent: :delete_all
+  has_many :survey_question_answers, dependent: :delete_all
 
   validates :content, presence: true
   validates :priority, presence: true

@@ -6,6 +6,7 @@ var Register = (function() {
   var $inputPassword;
   var $inputPasswordConfirmation;
   var $message;
+  var errorsTemplate;
 
   var _authenticityToken;
 
@@ -18,6 +19,8 @@ var Register = (function() {
     $inputPasswordConfirmation  = $("#input-password-confirmation");
     $message                    = $(".message");
     $btnRegister                = $("#btn-register");
+
+    errorsTemplate  = $("#errors-template").html();
   };
 
   var _bindEvents = function() {
@@ -56,16 +59,29 @@ var Register = (function() {
         success: function(response) {
         },
         error: function(response) {
-          alert("Error in registering...");
-          $inputFirstName.prop("disabled", false);
-          $inputLastName.prop("disabled", false);
-          $inputUsername.prop("disabled", false);
-          $inputEmail.prop("disabled", false);
-          $inputPassword.prop("disabled", false);
-          $inputPasswordConfirmation.prop("disabled", false);
-          $btnRegister.prop("disabled", false);
+          var errors  = ["Something went wrong"];
 
-          $message.html("Error!");
+          try {
+            errors = JSON.parse(response.responseText).errors;
+          } catch(err) {
+            console.log(err);
+            console.log(response);
+          } finally {
+            $inputFirstName.prop("disabled", false);
+            $inputLastName.prop("disabled", false);
+            $inputUsername.prop("disabled", false);
+            $inputEmail.prop("disabled", false);
+            $inputPassword.prop("disabled", false);
+            $inputPasswordConfirmation.prop("disabled", false);
+            $btnRegister.prop("disabled", false);
+
+            $message.html(
+              Mustache.render(
+                errorsTemplate,
+                { errors: errors }
+              )
+            );
+          }
         }
       });
     });

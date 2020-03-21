@@ -1,0 +1,12 @@
+<script id="errors-template" type="x-tmpl-mustache">
+  <div class="card border-danger">
+    <div class="card-body text-danger">
+      <h5 class="card-title">Some Errors Occurred</h5>
+      <ul>
+        {{#errors}}
+          <li>{{.}}</li>
+        {{/errors}}
+      </ul>
+    </div>
+  </div>
+</script>

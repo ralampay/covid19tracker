@@ -14,6 +14,8 @@
 //= require activestorage
 //= require jquery/dist/jquery
 //= require bootstrap/dist/js/bootstrap
+//= require mustache/mustache
+
 
 
 // TODO: Fix ajax login
