@@ -10,7 +10,7 @@
                 PUI Count
             .media-body.text-right
               %h3#pui-count
-                0
+                #{MatViewCountClassification.where(classification: "PUI").first.try(:count) || 0}
   .col
     .card
       .card-content
@@ -21,6 +21,18 @@
                 %span.fa.fa-pencil-alt
                 PUM Count
             .media-body.text-right
-              %h3#pui-count
-                0
+              %h3#pum-count
+                #{MatViewCountClassification.where(classification: "PUM").first.try(:count) || 0}
+  .col
+    .card
+      .card-content
+        .card-body
+          .media.d-flex
+            .align-self-center
+              %h5.text-muted
+                %span.fa.fa-pencil-alt
+                GOOD Count
+            .media-body.text-right
+              %h3#good-count
+                #{MatViewCountClassification.where(classification: "Good").first.try(:count) || 0}
 %hr
