@@ -21,6 +21,15 @@ module Api
         if errors.size > 0
           render json: { errors: errors }, status: 400
         else
+          ::Users::Register.new(
+            first_name: first_name,
+            last_name: last_name,
+            username: username,
+            email: email,
+            password: password,
+            password_confirmation: password_confirmation
+          ).execute!
+
           render json: { message: "ok" }
         end
       end

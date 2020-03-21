@@ -12,6 +12,22 @@
 
   <body>
     <%= render partial: "shared/nav" %>
+    <% if user_signed_in? and current_user.is_active.blank? %>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col">
+            <div class="card border-info">
+              <div class="card-body text-info">
+                <h5 class="card-title">Attention!</h5>
+                <p>
+                  Your user isn't currently active yet. Please check your email and click the confirmation link to start using the system. Thank you.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   root to: "pages#index"
   get "/profile", to: "pages#profile", as: :profile
   get "/register", to: "pages#register", as: :register
+  get "/confirm/:confirmation_token", to: "pages#confirm", as: :confirm
 
   resources :patients
   resources :establishments

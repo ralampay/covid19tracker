@@ -1,5 +1,6 @@
 class SurveyAnswersController < ApplicationController
   before_action :authenticate_user!
+  before_action :authenticate_active!
   before_action :load_survey_answer, only: [:destroy, :show]
 
   def index

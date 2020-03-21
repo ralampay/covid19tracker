@@ -57,6 +57,8 @@ var Register = (function() {
         method: "POST",
         data: data,
         success: function(response) {
+          $message.html("Success! Redirecting...");
+          window.location.reload();
         },
         error: function(response) {
           var errors  = ["Something went wrong"];

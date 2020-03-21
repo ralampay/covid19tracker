@@ -1,5 +1,6 @@
 class PatientsController < ApplicationController
   before_action :authenticate_user!
+  before_action :authenticate_active!
   before_action :load_patient, only: [:edit, :update, :destroy, :show]
   before_action :load_values, only: [:new, :create, :edit, :update]
 

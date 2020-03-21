@@ -5,6 +5,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def authenticate_active!
+    if user_signed_in? and !current_user.is_active
+      redirect_to root_path
+    end
+  end
+
   protected
 
   def authenticate_user!

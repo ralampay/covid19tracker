@@ -15,4 +15,22 @@ class PagesController < ApplicationController
 
   def register
   end
+
+  def confirm
+    if params[:confirmation_token].blank?
+      redirect_to root_path
+    end
+
+    @user = User.where(confirmation_token: params[:confirmation_token]).first
+
+    if !@user.present?
+      redirect_to root_path(error_message: "user not found")
+    elsif @user.is_active
+      redirect_to root_path
+    else
+      @user.update!(
+        is_active: true
+      )
+    end
+  end
 end
