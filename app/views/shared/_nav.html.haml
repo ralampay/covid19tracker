@@ -6,18 +6,19 @@
   #navbar-nav.collapse.navbar-collapse
     %ul.navbar-nav
       - if user_signed_in?
-        %li.nav-item
-          = link_to patients_path, class: 'nav-link' do
-            .fa.fa-users
-            My Records
-        %li.nav-item
-          = link_to establishments_path, class: 'nav-link' do
-            .fa.fa-building
-            My Establishments
-        %li.nav-item
-          = link_to survey_answers_path, class: 'nav-link' do
-            .fa.fa-file
-            My Surveys
+        - if current_user.is_active
+          %li.nav-item
+            = link_to patients_path, class: 'nav-link' do
+              .fa.fa-users
+              My Records
+          %li.nav-item
+            = link_to establishments_path, class: 'nav-link' do
+              .fa.fa-building
+              My Establishments
+          %li.nav-item
+            = link_to survey_answers_path, class: 'nav-link' do
+              .fa.fa-file
+              My Surveys
         %li.nav-item
           = link_to profile_path, class: 'nav-link' do
             .fa.fa-user
