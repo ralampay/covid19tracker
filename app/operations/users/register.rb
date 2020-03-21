@@ -14,7 +14,7 @@ module Users
                 confirmation_token: "#{SecureRandom.hex(32)}"
               )
 
-      @host = ENV['HOST'] || "http://localhost:3000"
+      @host = ENV['MY_HOST'] || "http://localhost:3000"
     end
 
     def execute!
