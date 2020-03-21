@@ -3,6 +3,7 @@ namespace :api do
     # Users
     post "/login", to: "users#login"
     post "/register", to: "users#register"
+    post "/users/resend_confirmation", to: "users#resend_confirmation"
 
     # Survey Answers
     post "/survey_answers/create", to: "survey_answers#create"

@@ -1,0 +1,57 @@
+= render partial: "resend_confirmation_header"
+
+.container-fluid
+  .row
+    .col
+      .card
+        .card-body
+          %center
+            .form-group
+              %label
+                Enter Email Address:
+              = text_field_tag :resend_email, "", class: "form-control", id: "input-resend-email", placeholder: "Email Address"
+            %hr
+            .message
+            #btn-resend-email.btn.btn-block.btn-success
+              .fa.fa-check
+              Resend Confirmation Link
+
+:javascript
+  $(document).ready(function() {
+    var $inputResendEmail = $("#input-resend-email");
+    var $btnResendEmail   = $("#btn-resend-email");
+    var authenticityToken = $("meta[name='csrf-token']").attr('content');
+    var $message          = $(".message");
+
+    $btnResendEmail.on("click", function() {
+      var email = $inputResendEmail.val();
+
+      if(!email) {
+        alert("Please input valid email address");
+      } else {
+        $message.html("Resending... Please wait.");
+        $inputResendEmail.prop("disabled", true);
+        $btnResendEmail.prop("disabled", true);
+
+        $.ajax({
+          url: "/api/v1/users/resend_confirmation",
+          method: "POST",
+          data: {
+            email: email,
+            authenticity_token: authenticityToken
+          },
+          success: function(response) {
+            $message.html("Successfully sent email. Please check your inbox.");
+            $inputResendEmail.prop("disabled", false);
+            $btnResendEmail.prop("disabled", false);
+            $inputResendEmail.val("");
+          },
+          error: function(response) {
+            alert("User not found or is already active");
+            $inputResendEmail.prop("disabled", false);
+            $btnResendEmail.prop("disabled", false);
+          }
+        });
+      }
+    });
+  });

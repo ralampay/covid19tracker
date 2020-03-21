@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get "/profile", to: "pages#profile", as: :profile
   get "/register", to: "pages#register", as: :register
   get "/confirm/:confirmation_token", to: "pages#confirm", as: :confirm
+  get "/resend_confirmation", to: "pages#resend_confirmation", as: :resend_confirmation
 
   resources :patients
   resources :establishments

@@ -1,6 +1,20 @@
 module Api
   module V1
     class UsersController < ApplicationController
+      def resend_confirmation
+        user  = User.where(
+                  email: params[:email],
+                  is_active: nil
+                ).first
+
+        if user.present?
+          ::Users::ResendConfirmation.new(user: user).execute! 
+          render json: { message: "ok" }
+        else
+          render json: { message: "error" }, status: 400
+        end
+      end
+
       def register
         first_name            = params[:first_name]
         last_name             = params[:last_name]

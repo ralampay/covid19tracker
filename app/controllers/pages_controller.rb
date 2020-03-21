@@ -16,6 +16,9 @@ class PagesController < ApplicationController
   def register
   end
 
+  def resend_confirmation
+  end
+
   def confirm
     if params[:confirmation_token].blank?
       redirect_to root_path
