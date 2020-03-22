@@ -1,0 +1,11 @@
+= render partial: "index_header"
+
+.container-fluid
+  .row
+    .col
+      - if @users.size > 0
+        = render partial: "index_list"
+        = paginate @users
+      - else
+        %p
+          No users found

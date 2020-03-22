@@ -1,0 +1,37 @@
+%div.table-responsive
+  %table.table.table-bordered.table-sm
+    %thead
+      %tr
+        %th
+          Email
+        %th
+          Username
+        %th
+          Name
+        %th
+          Role
+        %th.text-center
+          Is Active
+        %th.text-center
+          Actions
+    %tbody
+      - @users.each do |u|
+        %tr
+          %td
+            #{u.email}
+          %td
+            #{u.username}
+          %td
+            #{u.full_name}
+          %td
+            #{u.role}
+          %td.text-center
+            - if u.is_active
+              .badge.badge-success
+                Active
+            - else
+              .badge.badge-danger
+                Inactive
+          %td.text-center
+            = link_to administration_user_path(u) do
+              .fa.fa-search

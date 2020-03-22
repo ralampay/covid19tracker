@@ -4,4 +4,6 @@ namespace :administration do
       resources :question_options, only: [:new, :create, :edit, :update, :destroy]
     end
   end
+
+  resources :users, only: [:index, :show]
 end

@@ -1,0 +1,43 @@
+= render partial: "show_header"
+
+.container-fluid
+  .row
+    .col
+      .card
+        .card-body
+          %table.table.table-bordered
+            %tr
+              %th
+                First Name:
+              %td
+                #{@user.first_name}
+            %tr
+              %th
+                Last Name:
+              %td
+                #{@user.last_name}
+            %tr
+              %th
+                Email:
+              %td
+                #{@user.email}
+            %tr
+              %th
+                Username:
+              %td
+                #{@user.username}
+            %tr
+              %th
+                Role:
+              %td
+                #{@user.role}
+            %tr
+              %th
+                Is Active:
+              %td
+                - if @user.is_active
+                  .badge.badge-success
+                    Active
+                - else
+                  .badge.badge-danger
+                    Inactive

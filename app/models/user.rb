@@ -13,6 +13,10 @@ class User < ApplicationRecord
   validates :username, presence: true, uniqueness: true
   validates :role, presence: true, inclusion: { in: ROLES }
 
+  def full_name
+    "#{last_name.upcase}, #{first_name.upcase}"
+  end
+
   def to_s
     username
   end
