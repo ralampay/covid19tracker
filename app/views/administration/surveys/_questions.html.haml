@@ -5,6 +5,9 @@
         #{i+1}) #{o}
         %small.text-muted
           #{o.question_type}
+        - if o.is_key
+          .badge.badge-info
+            KEY
       %hr
       - if ["single", "multiple"].include?(o.question_type)
         - if o.question_options.size > 0
