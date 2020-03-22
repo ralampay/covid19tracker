@@ -14,6 +14,10 @@ module Users
                 confirmation_token: "#{SecureRandom.hex(32)}"
               )
 
+      if ENV['AUTO_ACTIVE'].present?
+        @user.is_active = true
+      end
+
       @host = ENV['MY_HOST'] || "http://localhost:3000"
     end
 

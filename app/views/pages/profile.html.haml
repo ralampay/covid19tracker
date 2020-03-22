@@ -5,6 +5,7 @@
     .col
       .card
         .card-body
+          .message
           %table.table.table-bordered
             %tr
               %th
@@ -50,13 +51,24 @@
                   .form-group
                     %label
                       Password:
-                    = password_field_tag :password, "", id: 'input-password', class: 'form-control'
+                    = password_field_tag :password, "", id: 'input-cp-password', class: 'form-control'
                   .form-group
                     %label
                       Confirm Password:
-                    = password_field_tag :password, "", id: 'input-confirm-password', class: 'form-control'
+                    = password_field_tag :password, "", id: 'input-cp-confirm-password', class: 'form-control'
                   %hr
                   #btn-change-password.btn.btn-info.btn-block
                     .fa.fa-sync
                     Change Password
-                
+
+= render partial: "shared/errors"
+= javascript_include_tag "Profile.js"
+
+:javascript
+  $(document).ready(function() {
+    var authenticityToken = $("meta[name='csrf-token']").attr('content');
+
+    Profile.init({
+      authenticityToken: authenticityToken
+    });
+  });

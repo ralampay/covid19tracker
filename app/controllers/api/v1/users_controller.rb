@@ -15,6 +15,33 @@ module Api
         end
       end
 
+      def change_password
+        errors = []
+
+        if params[:password].blank?
+          errors << "password required"
+        end
+
+        if params[:password_confirmation].blank?
+          errors << "password_confirmation required"
+        end
+
+        if params[:password].present? and params[:password_confirmation].present? and params[:password] != params[:password_confirmation]
+          errors << "Passwords do not match"
+        end
+
+        if errors.size > 0
+          render json: { errors: errors }, status: 400
+        else
+          current_user.update!(
+            password: params[:password],
+            password_confirmation: params[:password_confirmation]
+          )
+
+          render json: { message: "ok" }
+        end
+      end
+
       def register
         first_name            = params[:first_name]
         last_name             = params[:last_name]

@@ -58,7 +58,7 @@ var Register = (function() {
         data: data,
         success: function(response) {
           $message.html("Success! Redirecting...");
-          window.location.reload();
+          window.location.href = "/";
         },
         error: function(response) {
           var errors  = ["Something went wrong"];
