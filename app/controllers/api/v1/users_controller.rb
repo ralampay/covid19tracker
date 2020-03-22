@@ -15,6 +15,18 @@ module Api
         end
       end
 
+      def update_group_name
+        current_user.update!(group_name: params[:group_name])
+
+        render json: { message: "ok" }
+      end
+
+      def update_company
+        current_user.update!(company: params[:company])
+
+        render json: { message: "ok" }
+      end
+
       def change_password
         errors = []
 

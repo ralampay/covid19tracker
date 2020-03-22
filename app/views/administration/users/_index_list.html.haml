@@ -10,6 +10,10 @@
           Name
         %th
           Role
+        %th
+          Company / Branch
+        %th
+          Group / Center
         %th.text-center
           Is Active
         %th.text-center
@@ -25,6 +29,10 @@
             #{u.full_name}
           %td
             #{u.role}
+          %td
+            #{u.company}
+          %td
+            #{u.group_name}
           %td.text-center
             - if u.is_active
               .badge.badge-success

@@ -5,6 +5,8 @@ namespace :api do
     post "/register", to: "users#register"
     post "/users/resend_confirmation", to: "users#resend_confirmation"
     post "/users/change_password", to: "users#change_password"
+    post "/users/update_group_name", to: "users#update_group_name"
+    post "/users/update_company", to: "users#update_company"
 
     # Survey Answers
     post "/survey_answers/create", to: "survey_answers#create"
