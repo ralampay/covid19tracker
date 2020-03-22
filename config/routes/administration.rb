@@ -6,5 +6,8 @@ namespace :administration do
     end
   end
 
-  resources :users, only: [:index, :show]
+  resources :users, only: [:index, :show] do
+    get "/promote", to: "users#promote"
+    get "/demote", to: "users#demote"
+  end
 end

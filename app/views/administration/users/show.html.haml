@@ -41,3 +41,15 @@
                 - else
                   .badge.badge-danger
                     Inactive
+            %tr
+              %th
+                Actions
+              %td
+                - if @user.role == "ADMIN"
+                  = link_to administration_user_demote_path(@user), class: "btn btn-danger" do
+                    .fa.fa-arrow-down
+                    Demote
+                - elsif @user.role == "USER"
+                  = link_to administration_user_promote_path(@user), class: "btn btn-success" do
+                    .fa.fa-arrow-up
+                    Promote
