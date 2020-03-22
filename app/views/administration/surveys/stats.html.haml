@@ -1,0 +1,63 @@
+= render partial: "stats_header"
+
+.container-fluid
+  .row
+    .col
+      %table.table.table-bordered
+        %tr
+          %th
+            Number of Answers:
+          %td
+            #{@survey.survey_answers.count}
+        %tr
+          %th
+            Number of Respondents:
+          %td
+            #{@survey.survey_answers.pluck(:user_id).uniq.size}
+
+  .row
+    .col
+      - @survey.questions.order("priority ASC").each_with_index do |question, i|
+        %h5
+          #{i + 1})
+          #{question}
+        %hr
+        - if question.question_type == "single"
+          %table.table.table-sm.table-bordered
+            %tr
+              %th
+                Option
+              %th
+                Count
+            - question.question_options.each do |question_option|
+              %tr
+                %th.text-muted
+                  #{question_option.label}
+                %td
+                  #{question.survey_question_answers.where(answer: question_option.val).count}
+        - elsif question.question_type == "multiple"
+          %table.table.table-sm.table-bordered
+            %tr
+              %th
+                Combination
+              %th
+                Count
+            - question.survey_question_answers.pluck(:answer).uniq.each do |a|
+              %tr
+                %th.text-muted
+                  #{a}
+                %td
+                  #{question.survey_question_answers.where(answer: a).count}
+        - elsif ["single-written", "numeric", "date"].include?(question.question_type)
+          %table.table.table-sm.table-bordered
+            %tr
+              %th
+                Answer
+              %th
+                Count
+            - question.survey_question_answers.pluck(:answer).uniq.each do |a|
+              %tr
+                %th.text-muted
+                  #{a}
+                %td
+                  #{question.survey_question_answers.where(answer: a).count}

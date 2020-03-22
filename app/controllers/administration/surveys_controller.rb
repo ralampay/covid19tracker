@@ -13,6 +13,10 @@ module Administration
       @surveys = @surveys.page(params[:page]).per(20)
     end
 
+    def stats
+      @survey = Survey.find(params[:survey_id])
+    end
+
     def show
       @survey = Survey.find(params[:id])
     end

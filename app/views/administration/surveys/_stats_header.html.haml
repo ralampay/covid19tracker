@@ -7,7 +7,11 @@
       = link_to administration_surveys_path do
         .fa.fa-file
         Surveys
+    %li.breadcrumb-item
+      = link_to administration_survey_path(@survey) do
+        .fa.fa-file
+        #{@survey}
+    %li.breadcrumb-item
+      .fa.fa-chart-line
+      Stats
     %li.ml-auto
-      = link_to administration_survey_stats_path(@survey) do
-        .fa.fa-chart-line
-        Stats
