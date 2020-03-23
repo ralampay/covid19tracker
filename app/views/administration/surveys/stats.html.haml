@@ -8,12 +8,12 @@
           %th
             Number of Answers:
           %td
-            #{@survey.survey_answers.count}
+            #{@survey.survey_answers.where(is_final: true).count}
         %tr
           %th
             Number of Respondents:
           %td
-            #{@survey.survey_answers.pluck(:user_id).uniq.size}
+            #{@survey.survey_answers.where(is_final: true).pluck(:user_id).uniq.size}
 
   .row
     .col
@@ -34,7 +34,7 @@
                 %th.text-muted
                   #{question_option.label}
                 %td
-                  #{question.survey_question_answers.where(answer: question_option.val).count}
+                  #{question.survey_question_answers.joins(:survey_answer).where("survey_answers.is_final = ?", true).where(answer: question_option.val).count}
         - elsif question.question_type == "multiple"
           %table.table.table-sm.table-bordered
             %tr
@@ -42,12 +42,12 @@
                 Combination
               %th
                 Count
-            - question.survey_question_answers.pluck(:answer).uniq.each do |a|
+            - question.survey_question_answers.joins(:survey_answer).where("survey_answers.is_final = ?", true).pluck(:answer).uniq.each do |a|
               %tr
                 %th.text-muted
                   #{a}
                 %td
-                  #{question.survey_question_answers.where(answer: a).count}
+                  #{question.survey_question_answers.joins(:survey_answer).where("survey_answers.is_final = ?", true).where(answer: a).count}
         - elsif ["single-written", "numeric", "date"].include?(question.question_type)
           %table.table.table-sm.table-bordered
             %tr
@@ -55,9 +55,9 @@
                 Answer
               %th
                 Count
-            - question.survey_question_answers.pluck(:answer).uniq.each do |a|
+            - question.survey_question_answers.joins(:survey_answer).where("survey_answers.is_final = ?", true).pluck(:answer).uniq.each do |a|
               %tr
                 %th.text-muted
                   #{a}
                 %td
-                  #{question.survey_question_answers.where(answer: a).count}
+                  #{question.survey_question_answers.joins(:survey_answer).where("survey_answers.is_final = ?", true).where(answer: a).count}
