@@ -1,4 +1,5 @@
 namespace :db do
+<<<<<<< HEAD
   task :backup => :environment do
     filename = "#{Time.now.to_i}-backup-#{ENV['RAILS_ENV'] ||= 'development'}.dump"
 
@@ -230,6 +231,16 @@ namespace :db do
 
     puts "Done!"
   end
+=======
+def with_config
+    yield Rails.application.class.parent_name.underscore,
+      ActiveRecord::Base.connection_config[:host],
+      ActiveRecord::Base.connection_config[:database],
+      ActiveRecord::Base.connection_config[:username],
+      ActiveRecord::Base.connection_config[:password]
+  end
+
+>>>>>>> 3c72e8d4799b978ea188cb519d274a9bfe641ea7
 
   desc "Restore database"
   task :restore => :environment do
@@ -248,6 +259,7 @@ namespace :db do
       puts "Invalid database adapter"
     end
   end
+<<<<<<< HEAD
 
   task :save_accounting_codes => :environment do
     accounting_codes  = AccountingCode.all
@@ -494,4 +506,6 @@ namespace :db do
 
     puts "Done!"
   end
+=======
+>>>>>>> 3c72e8d4799b978ea188cb519d274a9bfe641ea7
 end

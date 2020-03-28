@@ -1,63 +1,54 @@
 = render partial: "stats_header"
 
 .container-fluid
-  .row
-    .col
-      %table.table.table-bordered
-        %tr
-          %th
-            Number of Answers:
-          %td
-            #{@survey.survey_answers.where(is_final: true).count}
-        %tr
-          %th
-            Number of Respondents:
-          %td
-            #{@survey.survey_answers.where(is_final: true).pluck(:user_id).uniq.size}
+  = form_tag administration_survey_stats_path(@survey), method: 'GET' do
+    .row
+      .col-md-10.col-xs-12
+        .form-group
+          %label
+            Date
+          = date_field_tag :date_answered, @date_answered, class: "form-control"
+      .col-md-2.col-xs-12
+        .form-group
+          %label
+            Actions
+          %button.btn.btn-info.btn-block{ type: "submit" }
+            .fa.fa-sync
+            Filter
+    .row
+      .col
+        %table.table.table-bordered
+          %tr
+            %th
+              Number of Answers:
+            %td
+              #{@survey.survey_answers.where(is_final: true, date_answered: @date_answered).count}
+          %tr
+            %th
+              Number of Respondents:
+            %td
+              #{@survey.survey_answers.where(is_final: true, date_answered: @date_answered).pluck(:user_id).uniq.size}
 
   .row
     .col
-      - @survey.questions.order("priority ASC").each_with_index do |question, i|
-        %h5
-          #{i + 1})
-          #{question}
-        %hr
-        - if question.question_type == "single"
+      - if @data[:records].any?
+        - @data[:records].each_with_index do |result, i|
+          %h5
+            #{i + 1})
+            #{result[:question][:content]}
+          %hr
           %table.table.table-sm.table-bordered
             %tr
               %th{ width: "25%" }
                 Option
               %th
                 Count
-            - question.question_options.each do |question_option|
+            - result[:question][:answers].each do |o|
               %tr
                 %th.text-muted
-                  #{question_option.label}
+                  #{o[:answer]}
                 %td
-                  #{question.survey_question_answers.joins(:survey_answer).where("survey_answers.is_final = ?", true).where(answer: question_option.val).count}
-        - elsif question.question_type == "multiple"
-          %table.table.table-sm.table-bordered
-            %tr
-              %th{ width: "25%" }
-                Combination
-              %th
-                Count
-            - question.survey_question_answers.joins(:survey_answer).where("survey_answers.is_final = ?", true).pluck(:answer).uniq.each do |a|
-              %tr
-                %th.text-muted
-                  #{a}
-                %td
-                  #{question.survey_question_answers.joins(:survey_answer).where("survey_answers.is_final = ?", true).where(answer: a).count}
-        - elsif ["single-written", "numeric", "date"].include?(question.question_type)
-          %table.table.table-sm.table-bordered
-            %tr
-              %th{ width: "25%" }
-                Answer
-              %th
-                Count
-            - question.survey_question_answers.joins(:survey_answer).where("survey_answers.is_final = ?", true).pluck(:answer).uniq.each do |a|
-              %tr
-                %th.text-muted
-                  #{a}
-                %td
-                  #{question.survey_question_answers.joins(:survey_answer).where("survey_answers.is_final = ?", true).where(answer: a).count}
+                  #{o[:count]}
+      - else
+        %p
+          No results

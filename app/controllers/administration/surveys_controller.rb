@@ -14,7 +14,15 @@ module Administration
     end
 
     def stats
-      @survey = Survey.find(params[:survey_id])
+      @survey         = Survey.find(params[:survey_id])
+      @date_answered  = params[:date_answered] || Date.today
+
+      @data = ::SurveyAnswers::FetchStats.new(
+                config: {
+                  survey_id: @survey.id,
+                  date_answered: @date_answered
+                }
+              ).execute!
     end
 
     def show

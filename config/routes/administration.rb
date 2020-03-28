@@ -1,6 +1,6 @@
 namespace :administration do
   resources :surveys do
-    get "/stats", to: "surveys#stats"
+    get "/stats", to: "surveys#stats", as: :stats
     resources :questions, only: [:new, :create, :edit, :update, :destroy] do
       resources :question_options, only: [:new, :create, :edit, :update, :destroy]
     end
