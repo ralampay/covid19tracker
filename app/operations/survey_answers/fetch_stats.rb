@@ -1,16 +1,40 @@
 module SurveyAnswers
   class FetchStats
-    def initialize(config:)
-      @config         = config
-      @survey_id      = @config[:survey_id]
-      @date_answered  = @config[:date_answered]
+    def initialize(config:, kv: [])
+      @config               = config
+      @survey_id            = @config[:survey_id]
+      @start_date_answered  = @config[:start_date_answered]
+      @end_date_answered    = @config[:end_date_answered]
+
+      @kv = kv
 
       @data = {
-        records: []
+        records: [],
+        num_answers: 0,
+        num_respondents: 0
       }
+
+      if @kv.any?
+        @kv = @kv.select{ |o|
+                o[:val].present?
+              }
+
+        if @kv.any?
+          @survey_answer_ids  = SurveyQuestionAnswer.where(
+                                  "question_id IN (?) AND answer IN (?)",
+                                  @kv.map{ |o| o[:key].split("_").last },
+                                  @kv.map{ |o| o[:val] }
+                                ).pluck(:survey_answer_id).uniq
+
+          ids = @survey_answer_ids.map{ |id| "'#{id}'" }.join(",")
+
+          @additional_query = " AND survey_answers.id IN (#{ids})"
+        end
+      end
     end
 
     def execute!
+
       query = "
         SELECT
           surveys.id AS survey_id,
@@ -31,7 +55,7 @@ module SurveyAnswers
           surveys
           ON surveys.id = survey_answers.survey_id
         WHERE
-          surveys.id = '#{@survey_id}' AND date_answered = '#{@date_answered}'
+          surveys.id = '#{@survey_id}' AND date_answered >= '#{@start_date_answered}' AND date_answered <= '#{@end_date_answered}' #{@additional_query if @additional_query.present?}
         GROUP BY
           surveys.id, questions.id, survey_question_answers.answer, survey_answers.date_answered
         ORDER BY

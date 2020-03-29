@@ -3,11 +3,22 @@
 .container-fluid
   = form_tag administration_survey_stats_path(@survey), method: 'GET' do
     .row
-      .col-md-10.col-xs-12
+      .col-md-3.col-xs-12
         .form-group
           %label
-            Date
-          = date_field_tag :date_answered, @date_answered, class: "form-control"
+            Start Date
+          = date_field_tag :start_date_answered, @start_date_answered, class: "form-control"
+      .col-md-3.col-xs-12
+        .form-group
+          %label
+            End Date
+          = date_field_tag :end_date_answered, @end_date_answered, class: "form-control"
+      - key_questions(@survey.id).each do |q|
+        .col
+          .form-group
+            %label
+              #{q.content}
+            = select_tag "questions_#{q.id}", options_for_select(key_options(q.id), params["questions_#{q.id}"]), class: "form-control"
       .col-md-2.col-xs-12
         .form-group
           %label
@@ -15,19 +26,6 @@
           %button.btn.btn-info.btn-block{ type: "submit" }
             .fa.fa-sync
             Filter
-    .row
-      .col
-        %table.table.table-bordered
-          %tr
-            %th
-              Number of Answers:
-            %td
-              #{@survey.survey_answers.where(is_final: true, date_answered: @date_answered).count}
-          %tr
-            %th
-              Number of Respondents:
-            %td
-              #{@survey.survey_answers.where(is_final: true, date_answered: @date_answered).pluck(:user_id).uniq.size}
 
   .row
     .col

@@ -14,14 +14,23 @@ module Administration
     end
 
     def stats
-      @survey         = Survey.find(params[:survey_id])
-      @date_answered  = params[:date_answered] || Date.today
+      @survey               = Survey.find(params[:survey_id])
+      @start_date_answered  = params[:start_date_answered] || Date.today
+      @end_date_answered    = params[:end_date_answered] || Date.today
+
+      @kv   = params.keys.select{ |k|
+                k.first(9) == "questions"
+              }.map{ |k|
+                { key: k, val: params[k] }
+              }
 
       @data = ::SurveyAnswers::FetchStats.new(
                 config: {
                   survey_id: @survey.id,
-                  date_answered: @date_answered
-                }
+                  start_date_answered: @start_date_answered,
+                  end_date_answered: @end_date_answered
+                },
+                kv: @kv
               ).execute!
     end
 
