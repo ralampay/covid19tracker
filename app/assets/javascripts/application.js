@@ -15,7 +15,10 @@
 //= require jquery/dist/jquery
 //= require bootstrap/dist/js/bootstrap
 //= require mustache/mustache
-
+//= require datatables.net/js/jquery.dataTables.js
+//= require datatables.net-bs4/js/dataTables.bootstrap4.js
+//= require datatables.net-fixedheader/js/dataTables.fixedHeader.js
+//= require datatables.net-fixedheader-bs4/js/fixedHeader.bootstrap4.js
 
 
 // TODO: Fix ajax login

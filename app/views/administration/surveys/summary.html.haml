@@ -1,0 +1,69 @@
+= render partial: "summary_header"
+
+.container-fluid
+  = form_tag administration_survey_stats_path(@survey), method: 'GET' do
+    .row
+      .col-md-5.col-xs-12
+        .form-group
+          %label
+            Start Date
+          = date_field_tag :start_date_answered, @start_date_answered, class: "form-control"
+      .col-md-5.col-xs-12
+        .form-group
+          %label
+            End Date
+          = date_field_tag :end_date_answered, @end_date_answered, class: "form-control"
+      .col-md-2.col-xs-12
+        .form-group
+          %label
+            Actions
+          %button.btn.btn-info.btn-block{ type: "submit" }
+            .fa.fa-sync
+            Filter
+  .row
+    .col
+      .card
+        .card-body
+          .table-responsive
+            - if @data[:records].any?
+              %table#tb-summary.table.table-sm.table-bordered
+                %thead
+                  %tr
+                    - @data[:questions].each do |q|
+                      %th.no-wrap
+                        #{q[:content]}
+                %tbody
+                  - @data[:records].each do |r|
+                    %tr
+                      - r[:answers].each do |a|
+                        %td
+                          #{a}
+            - else
+              %p
+                No Results
+
+:javascript
+  $(document).ready(function() {
+    $('#tb-summary thead tr').clone(true).appendTo( '#tb-summary thead' );
+    $('#tb-summary thead tr:eq(1) th').each( function (i) {
+      var title = $(this).text();
+      $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+
+      $( 'input', this ).on( 'keyup change', function () {
+        if ( table.column(i).search() !== this.value ) {
+          table
+            .column(i)
+            .search( this.value )
+            .draw();
+        }
+      } );
+    } );
+
+    var table = $("#tb-summary").DataTable({
+      orderCellsTop: true,
+      fixedHeader: true,
+      searching: false,
+      pageLength: 100,
+      order: []
+    }); 
+  });

@@ -13,6 +13,20 @@ module Administration
       @surveys = @surveys.page(params[:page]).per(20)
     end
 
+    def summary
+      @survey               = Survey.find(params[:survey_id])
+      @start_date_answered  = params[:start_date_answered] || Date.today - 1.week
+      @end_date_answered    = params[:end_date_answered] || Date.today
+
+      @data = ::SurveyAnswers::FetchSummary.new(
+                config: {
+                  survey_id: @survey.id,
+                  start_date_answered: @start_date_answered,
+                  end_date_answered: @end_date_answered
+                }
+              ).execute!
+    end
+
     def stats
       @survey               = Survey.find(params[:survey_id])
       @start_date_answered  = params[:start_date_answered] || Date.today
