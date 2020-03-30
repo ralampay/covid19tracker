@@ -25,9 +25,12 @@ module SurveyAnswers
 
           @kv.each do |kv|
             #sub_query << "(question_id = '#{kv[:key].split("_").last}' AND answer = '#{kv[:val]}')"
-            SurveyQuestionAnswer.where(
+            SurveyQuestionAnswer.joins(survey_answer: :survey).where(
               question_id: kv[:key].split("_").last,
               answer: kv[:val]
+            ).where(
+              "survey_answers.survey_id = ? AND survey_answers.is_final = 't' AND survey_answers.date_answered >= '#{@start_date_answered}' AND survey_answers.date_answered <= '#{@end_date_answered}'",
+              @survey_id
             ).pluck(:survey_answer_id).each do |id|
               @survey_answer_ids << id
             end
