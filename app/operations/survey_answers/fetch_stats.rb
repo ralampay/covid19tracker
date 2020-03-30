@@ -20,11 +20,18 @@ module SurveyAnswers
               }
 
         if @kv.any?
-          @survey_answer_ids  = SurveyQuestionAnswer.where(
-                                  "question_id IN (?) AND answer IN (?)",
-                                  @kv.map{ |o| o[:key].split("_").last },
-                                  @kv.map{ |o| o[:val] }
-                                ).pluck(:survey_answer_id).uniq
+          # NOTE: Only get answers which exactly match criteria and extract its survey_answer_id
+          @survey_answer_ids  = []
+
+          @kv.each do |kv|
+            #sub_query << "(question_id = '#{kv[:key].split("_").last}' AND answer = '#{kv[:val]}')"
+            SurveyQuestionAnswer.where(
+              question_id: kv[:key].split("_").last,
+              answer: kv[:val]
+            ).pluck(:survey_answer_id).each do |id|
+              @survey_answer_ids << id
+            end
+          end
 
           ids = @survey_answer_ids.map{ |id| "'#{id}'" }.join(",")
 
