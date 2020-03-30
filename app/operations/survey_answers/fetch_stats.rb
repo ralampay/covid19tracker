@@ -72,18 +72,55 @@ module SurveyAnswers
       result  = ActiveRecord::Base.connection.execute(query).to_a
 
       result.group_by{ |tx| tx["question_id"] }.each do |question_id, txs|
-        @data[:records] << {
-          question: {
-            id: question_id,
-            content: Question.find(question_id).content,
-            answers: txs.map{ |t|
-              {
-                answer: t.fetch("answer"),
-                count: t.fetch("count")
+        if @kv.any?
+          question_ids  = @kv.map{ |kv| kv[:key].split("_").last }
+          answers       = @kv.map{ |kv| kv[:val] }.uniq
+
+          if question_ids.include?(question_id)
+            answers = txs.select{ |t|
+                        answers.include?(t.fetch("answer"))
+                      }.map{ |t|
+                        {
+                          answer: t.fetch("answer"),
+                          count: t.fetch("count")
+                        }
+                      }
+
+            @data[:records] << {
+              question: {
+                id: question_id,
+                content: Question.find(question_id).content,
+                answers: answers
+              }
+            }
+          else
+            @data[:records] << {
+              question: {
+                id: question_id,
+                content: Question.find(question_id).content,
+                answers: txs.map{ |t|
+                  {
+                    answer: t.fetch("answer"),
+                    count: t.fetch("count")
+                  }
+                }
+              }
+            }
+          end
+        else
+          @data[:records] << {
+            question: {
+              id: question_id,
+              content: Question.find(question_id).content,
+              answers: txs.map{ |t|
+                {
+                  answer: t.fetch("answer"),
+                  count: t.fetch("count")
+                }
               }
             }
           }
-        }
+        end
       end
 
       @data
