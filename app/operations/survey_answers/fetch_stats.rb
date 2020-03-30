@@ -35,10 +35,12 @@ module SurveyAnswers
               @survey_answer_ids << id
             end
           end
+          
+          if @survey_answer_ids.any?
+            ids = @survey_answer_ids.map{ |id| "'#{id}'" }.join(",")
 
-          ids = @survey_answer_ids.map{ |id| "'#{id}'" }.join(",")
-
-          @additional_query = " AND survey_answers.id IN (#{ids})"
+            @additional_query = " AND survey_answers.id IN (#{ids})"
+          end
         end
       end
     end
