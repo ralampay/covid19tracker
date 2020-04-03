@@ -1,18 +1,18 @@
 = render partial: "summary_header"
 
 .container-fluid
-  = form_tag administration_survey_stats_path(@survey), method: 'GET' do
+  = form_tag administration_survey_summary_path(@survey), method: 'GET' do
     .row
       .col-md-5.col-xs-12
         .form-group
           %label
             Start Date
-          = date_field_tag :start_date_answered, @start_date_answered, class: "form-control"
+          = date_field_tag :start_date_answered, @start_date_answered, class: "form-control", id: "input-start-date"
       .col-md-5.col-xs-12
         .form-group
           %label
             End Date
-          = date_field_tag :end_date_answered, @end_date_answered, class: "form-control"
+          = date_field_tag :end_date_answered, @end_date_answered, class: "form-control", id: "input-end-date"
       .col-md-2.col-xs-12
         .form-group
           %label
@@ -42,8 +42,21 @@
               %p
                 No Results
 
+#parameters{ data: { id: @survey.id } }
 :javascript
   $(document).ready(function() {
+    var $inputStartDate = $("#input-start-date");
+    var $inputEndDate   = $("#input-end-date");
+    var $btnDownloadXls = $("#btn-download-xls");
+    var surveyId        = $("#parameters").data("id");
+
+    $btnDownloadXls.on("click", function() {
+      var startDate = $inputStartDate.val();
+      var endDate   = $inputEndDate.val();
+
+      window.location.href = "/administration/surveys/" + surveyId + "/download_excel?start_date=" + startDate + "&end_date=" + endDate;
+    });
+
     $('#tb-summary thead tr').clone(true).appendTo( '#tb-summary thead' );
     $('#tb-summary thead tr:eq(1) th').each( function (i) {
       var title = $(this).text();

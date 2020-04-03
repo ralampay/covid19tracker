@@ -27,6 +27,23 @@ module Administration
               ).execute!
     end
 
+    def download_excel
+      @survey     = Survey.find(params[:survey_id])
+      @start_date = params[:start_date]
+      @end_date   = params[:end_date]
+
+      excel = ::SurveyAnswers::GenerateExcel.new(
+                survey: @survey,
+                start_date: @start_date,
+                end_date: @end_date
+              ).execute!
+
+      filename = "data.xlsx"
+
+      excel.serialize "#{Rails.root}/tmp/#{filename}"
+      send_file "#{Rails.root}/tmp/#{filename}", filename: "#{filename}", type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    end
+
     def stats
       @survey               = Survey.find(params[:survey_id])
       @start_date_answered  = params[:start_date_answered] || Date.today

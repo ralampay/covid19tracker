@@ -21,6 +21,8 @@ gem 'kaminari'
 gem 'sendgrid-ruby'
 gem 'sidekiq'
 gem 'pry'
+gem 'caxlsx_rails'
+gem 'caxlsx'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
