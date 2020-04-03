@@ -1,0 +1,28 @@
+:css
+  @page { size: landscape; margin: 10px;} 
+  table { font-size: 0.7em;}
+.container-fluid
+  .row
+    .col
+      .card
+        .card-body
+          .table-responsive
+            - if @data[:records].any?
+              %table#tb-summary.table.table-sm.table-bordered
+                %thead
+                  %tr
+                    - @data[:questions].each do |q|
+                      %th.no-wrap{ width: "2%" }
+                        #{q[:content]}
+                %tbody
+                  - @data[:records].each do |r|
+                    %tr
+                      - r[:answers].each do |a|
+                        %td
+                          #{a}
+            - else
+              %p
+                No Results
+
+:javascript
+  window.print();

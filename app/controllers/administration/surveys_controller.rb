@@ -27,6 +27,24 @@ module Administration
               ).execute!
     end
 
+    def print
+      @survey               = Survey.find(params[:survey_id])
+      @start_date_answered  = params[:start_date_answered] || Date.today - 1.week
+      @end_date_answered    = params[:end_date_answered] || Date.today
+
+      @data = ::SurveyAnswers::FetchSummary.new(
+                config: {
+                  survey_id: @survey.id,
+                  start_date_answered: @start_date_answered,
+                  end_date_answered: @end_date_answered
+                }
+              ).execute!
+
+      render "print"
+    end
+
+
+
     def download_excel
       @survey     = Survey.find(params[:survey_id])
       @start_date = params[:start_date]
